@@ -5,9 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Wesley Silva, Anderson Melo, and Gabriel Nascimento">
-  <title>Cadastro de Equipamentos - Field Service</title>
+  <title>Entrada de Equipamentos - Field Service</title>
 
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/modals.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../css/form-validation.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -60,10 +63,11 @@
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
     }
-  </style>
 
-  <!-- Custom styles for this template -->
-  <link href="../css/form-validation.css" rel="stylesheet">
+    .centralize {
+      margin-left: 16%;
+    }
+  </style>
 </head>
 
 <body class="bg-light">
@@ -71,263 +75,171 @@
   <div class="container">
     <main>
       <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h2>Cadastro de Equipamentos</h2>
+        <img class="d-block mx-auto mb-4" src="../static/stf_logo2.png" alt="" width="120">
+        <h2>Requisição de Compra - RC</h2>
       </div>
 
-      <!-- Conteúdo Lateral Esquerda -->
-      <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
+      <div class="centralize">
+        <button type="button" class="w-50 btn btn-secondary btn-lg centralize" data-bs-toggle="modal" data-bs-target="#modalSheet">Nova Requisição</button>
+        
+        <div class="modal modal-sheet py-5 fade" role="dialog" id="modalSheet">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-4 shadow">
+              <div class="modal-header border-bottom-0">
+                <h3 class="modal-title">Formulário para Abertura de RC</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <span class="text-muted">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">−$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
-            </li>
-          </ul>
+              <div class="modal-body py-0">
+                <form class="needs-validation" novalidate>
+                  <div class="row g-3">
+        
+                    <!--<div class="col-md-4">
+                      <label for="rc" class="form-label">Número RC:</label>
+                      <input type="text" class="form-control" id="rc" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        RC inválido. Digite novamente.
+                      </div>
+                    </div>-->
+        
+                    <!-- Data default atual mediante a nova requisição
+                      <div class="col-sm-4">
+                      <label for="data" class="form-label">Data:</label>
+                      <input type="date" name="d_Solicitacao" class="form-control" id="dSolicitacao">
+                      <div class="invalid-feedback">
+                        Informe uma data valida.
+                      </div>
+                    </div>-->
+                    
+                    <hr class="my-3">
 
-          <form class="card p-2">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Promo code">
-              <button type="submit" class="btn btn-secondary">Redeem</button>
-            </div>
-          </form>
-        </div>
-        <!-- ---------------------------------------------------------------------------------------------------- -->
+                    <h5 class="mb-3">Dados da Operação</h5>
 
-        <div class="col-md-7 col-lg-8">
-          <form class="needs-validation" novalidate>
-            <div class="row g-3">
-
-              <div class="col-sm-6">
-                <label for="country" class="form-label">Marca</label>
-                <select class="form-select" id="marca" required>
-                  <option value=""></option>
-                  <option>Dell</option>
-                  <option>Lenovo</option>
-                  <option>Felitron</option>
-                </select>
-                <div class="invalid-feedback">
-                  Informe a marca do equipamento.
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <label for="lastName" class="form-label">Modelo</label>
-                <input type="text" class="form-control" id="modelo" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Informe o modelo do equipamento.
-                </div>
-              </div>
-
-              <div class="col-md-5">
-                <label for="firstName" class="form-label">S/N</label>
-                <input type="text" class="form-control" id="serial" placeholder="" value="" required>
-                <div class="invalid-feedback">
-                  Informe o Número de Série do equipamento.
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <label for="state" class="form-label">Categoria</label>
-                <select class="form-select" id="categoria" required>
-                  <option value=""></option>
-                  <option value="">USB</option>
-                  <option value="">P2</option>
-                  <option value="">P10</option>
-                </select>
-                <div class="invalid-feedback">
-                  Informe o modelo do equipamento.
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <label for="zip" class="form-label">Quantidade</label>
-                <input type="number" class="form-control" id="qtd" min="0" required>
-                <div class="invalid-feedback">
-                  Quantidade inválida.
-                </div>
-              </div>
-
-              <!--
-                <div class="col-sm-6">
-                  <label for="state" class="form-label">Categoria</label>
-                  <select class="form-select" id="categoria" required>
-                    <option value=""></option>
-                    <option value="">USB</option>
-                    <option value="">P2</option>
-                    <option value="">P10</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Informe o modelo do equipamento.
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                  <label for="firstName" class="form-label">S/N</label>
-                  <input type="text" class="form-control" id="serial" placeholder="" value="" required>
-                  <div class="invalid-feedback">
-                    Informe o Número de Série do equipamento.
-                  </div>
-                </div>
-                
-                <div class="col-12">
-                  <label for="username" class="form-label">Username</label>
-                  <div class="input-group has-validation">
-                    <span class="input-group-text">@</span>
-                    <input type="text" class="form-control" id="username" placeholder="Username" required>
-                  <div class="invalid-feedback">
-                      Your username is required.
+                    <div class="col-sm-2">
+                      <label for="celula" class="form-label">Célula:</label>
+                      <input type="number" class="form-control" id="cel" placeholder="" value="" min="0" required>
+                      <div class="invalid-feedback">
+                        Informe o Número da célula.
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                <div class="col-12">
-                  <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                  <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                  </div>
-                </div>
+                    <div class="col-md-5">
+                      <label for="operacao" class="form-label">Operação:</label>
+                      <select class="form-select" id="operacao" required>
+                        <option value="none"></option>
+                        <option value="BAAS - Mongeral">BAAS - Mongeral</option>
+                        <option value="CAIXA Econ.">CAIXA Econ.</option>
+                        <option value="Comgás">Comgás</option>
+                        <option value="Creditas">Creditas</option>
+                        <option value="DLL">DLL</option>
+                        <option value="LATAM">LATAM</option>
+                        <option value="LATAM Pass">LATAM Pass</option>
+                        <option value="Planejamento">Planejamento</option>
+                        <option value="Sofisa">Sofisa</option>
+                        <option value="Stefanini">Stefanini</option>
+                        <option value="Via Varejo">Via Varejo</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Informe a operação.
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-5">
+                      <label for="gestor" class="form-label">Gestor:</label>
+                      <input type="text" class="form-control" name="gestor" id="gestor" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Informe o nome do gestor da Operação.
+                      </div>
+                      <hr class="my-4">
+                    </div>
 
-                <div class="col-12">
-                  <label for="address" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
-                  </div>
-                </div>
+                    <h5 class="mb-3">Dados do Equipamento</h5>
 
-                <div class="col-12">
-                  <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                  <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                </div>
-                -->
+                    <div class="col-md-4">
+                      <label for="periferico" class="form-label">Periférico:</label>
+                      <select class="form-select" id="periferico" required>
+                        <option value=""></option>
+                        <option value="Headset">Headset</option>
+                        <option value="Mouse">Mouse</option>
+                        <option value="Teclado">Teclado</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Informe o periférico.
+                      </div>
+                    </div>
+        
+                    <div class="col-md-4">
+                      <label for="marca" class="form-label">Marca:</label>
+                      <select class="form-select" id="marca" required>
+                        <!--<option value="none"></option>
+                        <option value="Dell">Dell</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Felitron">Felitron</option>-->
+                      </select>
+                      <div class="invalid-feedback">
+                        Informe a marca do periférico.
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="modelo" class="form-label">Modelo</label>
+                      <select class="form-select" id="modelo" required>
+                        <!--<option value="none"></option>
+                        <option value="Dell">Dell</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Felitron">Felitron</option>-->
+                      </select>
+                      <div class="invalid-feedback">
+                        Informe a marca do periférico.
+                      </div>
+                    </div>
+        
+                    <div class="col-md-2">
+                      <label for="qtd" class="form-label">Quantidade:</label>
+                      <input type="number" class="form-control" name="qtd" id="qtd" min="0" required>
+                      <div class="invalid-feedback">
+                        Quantidade inválida.
+                      </div>
+                    </div>
+        
+                    <!-- Status default PENDENTE APROVAÇÃO
+                      <div class="col-lg-3">
+                      <label for="status" class="form-label">Status</label>
+                      <input type="text" class="form-control" id="status" placeholder="" value="PENDENTE" required disabled>
+                      <div class="invalid-feedback">
+                          Informe o Número de Série do equipamento.
+                        </div>
+                    </div>-->
+                  </div>
+
+                  <hr class="my-4">
+
+                  <div class="modal-footer flex-column border-top-0">
+                    <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2" id="cadastrar">Cadastrar</button>
+                    <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <hr class="my-4">
-
-            <!--
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="same-address">
-                <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
-              </div>
-
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="save-info">
-                <label class="form-check-label" for="save-info">Save this information for next time</label>
-              </div>
-
-              <hr class="my-4">
-              -->
-
-            <h4 class="mb-3">Condição do Equipamento</h4>
-
-            <div class="my-3">
-              <div class="form-check">
-                <input id="novo" name="condicao" type="radio" class="form-check-input" checked required>
-                <label class="form-check-label" for="novo">Novo</label>
-              </div>
-              <div class="form-check">
-                <input id="seminovo" name="condicao" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="seminovo">Seminovo</label>
-              </div>
-              <div class="form-check">
-                <input id="danificado" name="condicao" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="danificado">Danificado</label>
-              </div>
-            </div>
-
-            <hr class="my-4">
-
-            <!--
-              <div class="row gy-3">
-                <div class="col-md-6">
-                  <label for="cc-name" class="form-label">Name on card</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                  <small class="text-muted">Full name as displayed on card</small>
-                  <div class="invalid-feedback">
-                    Name on card is required
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <label for="cc-number" class="form-label">Credit card number</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <label for="cc-expiration" class="form-label">Expiration</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Expiration date required
-                  </div>
-                </div>
-
-                <div class="col-md-3">
-                  <label for="cc-cvv" class="form-label">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Security code required
-                  </div>
-                </div>
-              </div>
-
-              <hr class="my-4">
-              -->
-            <button class="w-100 btn btn-primary btn-lg" type="submit">Cadastrar</button>
-          </form>
+          </div>
         </div>
       </div>
-    </main>
+  </div>
+  </main>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p class="mb-1">&copy; 2022 Stefanini - Field Service</p>
-      <!--
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2022 Stefanini - Field Service</p>
+    <!--
         <ul class="list-inline">
           <li class="list-inline-item"><a href="#">Privacy</a></li>
           <li class="list-inline-item"><a href="#">Terms</a></li>
           <li class="list-inline-item"><a href="#">Support</a></li>
         </ul>
         -->
-    </footer>
+  </footer>
   </div>
   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../js/form-validation.js"></script>
+  <script src="../js/test-validation.js"></script>
 </body>
 
 </html>
