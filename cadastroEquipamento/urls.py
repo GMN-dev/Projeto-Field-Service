@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('equipamentos/', views.cadastro, name='cadastro_url')
+    path('retirada/', views.cadastro, name='cadastrar'),
+    # path('entrada/', views.entrada, name='entrada'),
 ]
