@@ -1,5 +1,8 @@
 <!doctype html>
-{% load static %}
+
+<!-- Django code -->
+<!--{% load static %}-->
+
 <html lang="pt-br">
 
 <head>
@@ -7,8 +10,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Wesley Silva, Anderson Melo, and Gabriel Nascimento">
   <title>Dashboard · Field Service</title>
-  <link href="{% static "cadastroEquipamento/assets/dist/css/bootstrap.min.css" %}" rel="stylesheet">
-  <link href="{% static 'cadastroEquipamento/css/dashboard.css' %}" rel="stylesheet">
+
+  <!-- Django code -->
+  <!--<link href="{% static '../assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static '../css/dashboard.css' %}" rel="stylesheet">-->
+  
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/dashboard.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -400,11 +408,19 @@
     </div>
   </div>
 
-  <script src={% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}></script>
-  <script src={% static 'cadastroEquipamento/assets/dist/js/feather.min.js' %}></script>
-  <script src={% static "cadastroEquipamento/assets/dist/js/Chart.min.js" %}></script>
-  <script src={% static "cadastroEquipamento/js/form-validation.js" %}></script>
-  <script src={% static "cadastroEquipamento/js/dashboard.js" %}></script>
+  <!-- Django code -->
+  <!--<script src="{% static '../assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static '../assets/dist/js/feather.min.js' %}"></script>
+  <script src="{% static '../assets/dist/js/Chart.min.js' %}"></script>
+  <script src="{% static '../js/form-validation.js' %}"></script>
+  <script src="{% static '../js/dashboard.js' %}"></script>-->
+
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/dist/js/feather.min.js"></script>
+  <script src="../assets/dist/js/Chart.min.js"></script>
+  <script src="../js/form-validation.js"></script>
+  <script src="../js/test-validation.js"></script>
+  <script src="../js/dashboard.js"></script>
 </body>
 
 </html>
