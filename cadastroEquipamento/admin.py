@@ -1,5 +1,6 @@
 from django.contrib import admin
 
-import cadastroEquipamento
+from cadastroEquipamento import models
 
 # Register your models here.
+admin.site.register(models.Solicitacao)
