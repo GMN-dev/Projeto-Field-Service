@@ -133,7 +133,6 @@ class Solicitacao(models.Model):
     motivo_solicitacao = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'solicitacao'
 
 
