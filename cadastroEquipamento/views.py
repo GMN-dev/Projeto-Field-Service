@@ -30,7 +30,7 @@ def cadastro(request):
 
         messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
         
-        return redirect('/cadastro/retirada')
+        return redirect('/cadastro/dashboard')
 
         # except:
             

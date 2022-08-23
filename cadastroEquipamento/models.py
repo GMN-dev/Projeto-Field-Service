@@ -132,8 +132,9 @@ class Solicitacao(models.Model):
     periferico = models.CharField(max_length=255, blank=True, null=True)
     motivo_solicitacao = models.CharField(max_length=255, blank=True, null=True)
 
+    
     class Meta:
         db_table = 'solicitacao'
-
-
+    
+    
 
