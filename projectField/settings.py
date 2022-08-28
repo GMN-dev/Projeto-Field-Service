@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cadastroEquipamento',
     'rest_framework'
-
 ]
 
 MIDDLEWARE = [
@@ -77,16 +76,23 @@ WSGI_APPLICATION = 'projectField.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# MySQL
+'''
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_field_service',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-}                                                                                                                                                                                         
+}
+'''
+
+# SQLite3 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}  
 
 
 # Password validation
@@ -144,4 +150,9 @@ MESSAGE_TAGS = {
     constants.SUCCESS : 'alert-success',
     constants.INFO : 'alert-infor',
     constants.WARNING : 'alert-warning'
+}
+
+REST_FRAMEWORK = {
+    'DATE_FORMAT': "%d/%m/%Y",
+    'DATE_INPUT_FORMATS': ["%d-%m-%Y"],
 }
