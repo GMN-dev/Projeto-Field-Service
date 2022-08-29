@@ -142,3 +142,8 @@ MESSAGE_TAGS = {
     constants.INFO : 'alert-infor',
     constants.WARNING : 'alert-warning'
 }
+
+REST_FRAMEWORK = {
+    'DATE_FORMAT': "%d/%m/%Y",
+    'DATE_INPUT_FORMATS': ["%d-%m-%Y"],
+}

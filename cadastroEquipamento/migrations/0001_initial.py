@@ -136,4 +136,22 @@ class Migration(migrations.Migration):
                 'managed': False,
             },
         ),
-    ]
+
+        migrations.CreateModel(
+            name='Solicitacao',
+            fields=[
+                ('id_incidentes', models.AutoField(primary_key=True, serialize=False)),
+                ('chamado', models.IntegerField(blank=True, null=True)),
+                ('data_incidente', models.DateField(blank=True, null=True)),
+                ('informante', models.CharField(blank=True, max_length=255, null=True)),
+                ('operacao', models.CharField(blank=True, max_length=255, null=True)),
+                ('andar', models.IntegerField(blank=True, null=True)),
+                ('periferico', models.CharField(blank=True, max_length=255, null=True)),
+                ('motivo_solicitacao', models.CharField(blank=True, max_length=255, null=True)),
+            ],
+            options={
+                'db_table': 'solicitacao',
+                'managed': False,
+            },
+        ),
+]
