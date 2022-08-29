@@ -27,11 +27,10 @@
           '<td>' + count.andar + 'º</td>' +
           '<td>' + count.periferico + '</td>' +
           '<td>' + count.motivo_solicitacao + '</td>' +
+          '<td>PRECISA VIR DO BANCO!' + /*count.observacao + '</td>'*/
         '</tr>'
     })
   }
-
-  //Motivo: Quebra - Mal Uso - Troca - Novo - Extravio
 
   feather.replace({ 'aria-hidden': 'true' })
 

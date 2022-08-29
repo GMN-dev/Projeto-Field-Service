@@ -117,14 +117,14 @@
                 <span data-feather="users" class="align-text-bottom"></span>
                 Customers
               </a>
-            </li>-->
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <span data-feather="bar-chart-2" class="align-text-bottom"></span>
                 Estoque
               </a>
             </li>
-            <!--<li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" href="#">
                 <span data-feather="layers" class="align-text-bottom"></span>
                 Integrations
@@ -206,6 +206,7 @@
                 <th scope="col">Andar</th>
                 <th scope="col">Periférico</th>
                 <th scope="col">Motivo da Solicitação</th>
+                <th scope="col">Observações</th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
@@ -227,8 +228,7 @@
               <hr class="my-3">
               <div class="col-lg-3">
                 <label for="chamado" class="form-label">Nº Chamado:</label>
-                <input type="number" name="chamado" class="form-control" id="cel" placeholder="" value="" min="0"
-                  required>
+                <input type="number" name="chamado" class="form-control" id="cel" placeholder="" value="" min="0" max="7" required>
                 <div class="invalid-feedback">
                   Informe o Número do chamado.
                 </div>
@@ -269,8 +269,7 @@
               </div>
               <div class="col-sm-3">
                 <label for="andar" class="form-label">Andar:</label>
-                <input type="number" name="andar" class="form-control" id="cel" placeholder="" value="" min="1" max="6"
-                  required>
+                <input type="number" name="andar" class="form-control" id="cel" value="" min="1" max="6" required>
                 <div class="invalid-feedback">
                   Informe o número do andar.
                 </div>
@@ -287,12 +286,23 @@
                   Informe o periférico.
                 </div>
               </div>
-              <div class="col-lg-15">
+              <div class="col-sm-4">
                 <label for="motivo" class="form-label">Motivo da Solicitação:</label>
-                <input type="text" name="motivo" class="form-control" id="motivo" required>
+                <select name="motivo" class="form-select" id="motivo" required>
+                  <option value=""></option>
+                  <option value="Extravio">Extravio</option>
+                  <option value="Mal Uso">Mal Uso</option>
+                  <option value="Novo">Novo</option>
+                  <option value="Quebra">Quebra</option>
+                  <option value="Troca">Troca</option>
+                </select>
                 <div class="invalid-feedback">
                   Informe o motivo da solicitação.
                 </div>
+              </div>
+              <div class="col-lg-15">
+                <label for="obs" class="form-label">Observações:</label>
+                <textarea name="obs" class="form-control" id="obs" rows="5"></textarea>
               </div>
             </div>
             <hr class="my-4">
