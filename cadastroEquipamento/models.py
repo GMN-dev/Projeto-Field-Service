@@ -131,7 +131,7 @@ class Solicitacao(models.Model):
     andar = models.IntegerField(blank=True, null=True)
     periferico = models.CharField(max_length=255, blank=True, null=True)
     motivo_solicitacao = models.CharField(max_length=255, blank=True, null=True)
-
+    observacao = models.TextField(blank=True, null=True)
     
     class Meta:
         db_table = 'solicitacao'

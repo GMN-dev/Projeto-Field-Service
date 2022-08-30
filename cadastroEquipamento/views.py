@@ -15,6 +15,7 @@ def cadastro(request):
         andar = request.POST.get('andar')
         periferico = request.POST.get("periferico")
         motivo = request.POST.get("motivo")
+        observacao = request.POST.get("obs")
         
         # try:
         migracao = Solicitacao.objects.create(
@@ -24,7 +25,9 @@ def cadastro(request):
         operacao = operacao,
         andar = andar,
         periferico = periferico,
-        motivo_solicitacao = motivo)
+        motivo_solicitacao = motivo,
+        observacao = observacao)
+         
 
         migracao.save()
 
