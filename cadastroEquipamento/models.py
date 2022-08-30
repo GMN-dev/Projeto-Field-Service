@@ -124,14 +124,14 @@ class DjangoSession(models.Model):
 
 class Solicitacao(models.Model):
     id_incidentes = models.AutoField(primary_key=True)
-    chamado = models.IntegerField(blank=True, null=True)
-    data_incidente = models.DateField(blank=True, null=True)
-    informante = models.CharField(max_length=255, blank=True, null=True)
-    operacao = models.CharField(max_length=255, blank=True, null=True)
-    andar = models.IntegerField(blank=True, null=True)
-    periferico = models.CharField(max_length=255, blank=True, null=True)
-    motivo_solicitacao = models.CharField(max_length=255, blank=True, null=True)
-    observacao = models.TextField(blank=True, null=True)
+    chamado = models.IntegerField(blank=False, null=False)
+    data_incidente = models.DateField(blank=False, null=False)
+    informante = models.CharField(max_length=30, blank=False, null=False)
+    operacao = models.CharField(max_length=30, blank=False, null=False)
+    andar = models.IntegerField(blank=False, null=False)
+    periferico = models.CharField(max_length=30, blank=False, null=False)
+    motivo_solicitacao = models.CharField(max_length=30, blank=False, null=False)
+    observacao = models.TextField(max_length=250 ,blank=True, null=True)
     
     class Meta:
         db_table = 'solicitacao'
