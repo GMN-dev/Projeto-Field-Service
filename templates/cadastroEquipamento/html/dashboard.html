@@ -1,23 +1,13 @@
 <!doctype html>
-
-<!-- Django code -->
 {% load static %}
-
 <html lang="pt-br">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Wesley Silva, Anderson Melo, and Gabriel Nascimento">
   <title>Dashboard · Field Service</title>
-
-  <!-- Django code -->
   <link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'cadastroEquipamento/css/dashboard.css' %}" rel="stylesheet">
-
-  <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-  <!-- <link href="../css/dashboard.css" rel="stylesheet"> -->
-
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -71,9 +61,7 @@
     }
   </style>
 </head>
-
 <body>
-
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Field Service</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
@@ -88,7 +76,6 @@
       </div>
     </div>
   </header>
-
   <div class="container-fluid">
     <div class="row">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -302,8 +289,8 @@
               </div>
               <div class="col-lg-15">
                 <label for="obs" class="form-label">Observações:</label>
-                <textarea name="obs" class="form-control" id="obs" rows="5"></textarea>
-              </div>
+                <textarea name="obs" class="form-control" id="obs" rows="5" value=""></textarea>
+              </div> 
             </div>
             <hr class="my-4">
             <div class="modal-footer flex-column border-top-0">
@@ -315,20 +302,11 @@
       </div>
     </div>
   </div>
-
-  <!-- Django code -->
   <script src="{% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/assets/dist/js/feather.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/assets/dist/js/Chart.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/js/form-validation.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/js/dashboard.js' %}"></script>
-
-  <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
-  <!-- <script src="../assets/dist/js/feather.min.js"></script>
-  <script src="../assets/dist/js/Chart.min.js"></script>
-  <script src="../js/form-validation.js"></script>
-  <script src="../js/test-validation.js"></script>
-  <script src="../js/dashboard.js"></script> -->
 </body>
 
 </html>
