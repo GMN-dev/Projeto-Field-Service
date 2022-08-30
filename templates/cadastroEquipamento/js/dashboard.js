@@ -27,7 +27,7 @@
           '<td>' + count.andar + 'º</td>' +
           '<td>' + count.periferico + '</td>' +
           '<td>' + count.motivo_solicitacao + '</td>' +
-          '<td>PRECISA VIR DO BANCO!' + /*count.observacao + '</td>'*/
+          '<td>' + count.observacao + '</td>' +
         '</tr>'
     })
   }
