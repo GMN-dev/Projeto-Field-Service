@@ -1,0 +1,8 @@
+.modal-dialog {
+  width: 800px;
+  transition: bottom .75s ease-in-out;
+}
+
+.modal-sheet .modal-footer {
+  padding-bottom: 2rem;
+}
