@@ -1,7 +1,6 @@
 (() => {
   'use strict'
 
-
   // get API link and <tbody> element
   let url = '/cadastro/api/dashboard/'
   let table = document.querySelector('#tbody')
@@ -28,6 +27,8 @@
           '<td>' + count.periferico + '</td>' +
           '<td>' + count.motivo_solicitacao + '</td>' +
           '<td>' + count.observacao + '</td>' +
+          '<td><button type="button" class="btn btn-secondary btn-sm">Editar</button> ' +
+          '<button type="button" class="btn btn-danger btn-sm">Excluir</button></td>' +
         '</tr>'
     })
   }
@@ -61,6 +62,10 @@
         display: false
       }
     }
+  })
+
+  $(function(){
+    $('#datepicker').datepicker()
   })
 
 })()
