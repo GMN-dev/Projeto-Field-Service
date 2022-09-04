@@ -1,39 +1,80 @@
 (() => {
   'use strict'
 
-  // get API link and <tbody> element
   let url = '/cadastro/api/dashboard/'
-  let table = document.querySelector('#tbody')
+  const pageSize = 10;
+  let curPage = 1;
+  var tr = []
+
+  async function renderTable(page = 1) {
+    await getData()
+
+    if (page == 1) {
+      prevButton.style.visibility = "hidden";
+    } else {
+      prevButton.style.visibility = "visible";
+    }
+
+    if (page == numPages()) {
+      nextButton.style.visibility = "hidden";
+    } else {
+      nextButton.style.visibility = "visible";
+    }
+
+    // Create Table
+    var tbody = "";
+    tr.filter((row, index) => {
+      let start = (curPage - 1) * pageSize;
+      let end = curPage * pageSize;
+      if (index >= start && index < end) return true;
+    }).forEach(data => {
+      tbody += "<tr scope='row'>";
+      tbody += `<td> ${data.chamado} </td>`;
+      tbody += `<td> ${data.data_incidente}</td>`;
+      tbody += `<td> ${data.informante} </td>`;
+      tbody += `<td> ${data.operacao}</td>`;
+      tbody += `<td> ${data.andar}</td>`;
+      tbody += `<td> ${data.periferico}</td>`;
+      tbody += `<td> ${data.motivo_solicitacao}</td>`;
+      tbody += `<td> ${data.observacao}</td>`;
+      tbody += "<td><button type='button' class='btn btn-secondary btn-sm'>Editar</button> " +
+      "<button type='button' class='btn btn-danger btn-sm'>Excluir</button></td><tr>";
+    });
+    document.getElementById("data").innerHTML = tbody;
+  }
+
+  function previousPage() {
+    if (curPage > 1) {
+      curPage--;
+      renderTable(curPage);
+    }
+  }
+
+  function nextPage() {
+    if ((curPage * pageSize) < tr.length) {
+      curPage++;
+      renderTable(curPage);
+    }
+  }
+
+  function numPages() {
+    return Math.ceil(tr.length / pageSize);
+  }
+
+  document.querySelector('#nextButton').addEventListener('click', nextPage, false);
+  document.querySelector('#prevButton').addEventListener('click', previousPage, false);
+  
+  //Fetch Data from API
+  async function getData() {
+    const response = await fetch(url)
+    tr = await response.json()
+  }
+
+  
+  feather.replace({ 'aria-hidden': 'true' })
 
   let y = ['Mongeral','CAIXA Econ.','Comgás','Creditas','DLL','LATAM','LATAM Pass','Planejamento','Sofisa','Via Varejo']
   let x = [10,13,18,24,3,9,25,27,33,3]
-
-
-  // access API and call function to create a dynamic table
-  fetch(url).then(response => response.json())
-    .then(jsonObj => tbody(jsonObj))
-    .catch(() => alert('Não foi possível acessar a API'))
-
-  // Function to create a dynamic <tbody> 
-  function tbody(json) {
-    json.forEach(count => {
-      table.innerHTML +=
-        '<tr>' +
-          '<td>' + count.chamado + '</td>' +
-          '<td>' + count.data_incidente + '</td>' +
-          '<td>' + count.informante +  '</td>' +
-          '<td>' + count.operacao + '</td>' +
-          '<td>' + count.andar + 'º</td>' +
-          '<td>' + count.periferico + '</td>' +
-          '<td>' + count.motivo_solicitacao + '</td>' +
-          '<td>' + count.observacao + '</td>' +
-          '<td><button type="button" class="btn btn-secondary btn-sm">Editar</button> ' +
-          '<button type="button" class="btn btn-danger btn-sm">Excluir</button></td>' +
-        '</tr>'
-    })  
-  }
-
-  feather.replace({ 'aria-hidden': 'true' })
 
   // Graphs
  const ctx = document.getElementById('myChart')
@@ -64,5 +105,7 @@
     }
   })
 
+  //Render table *-Solicitações-*
+  renderTable()
 
 })()

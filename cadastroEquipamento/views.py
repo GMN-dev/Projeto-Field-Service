@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Solicitacao
 from django.contrib import messages
@@ -36,6 +36,8 @@ def cadastro(request):
         return redirect('/cadastro/dashboard')
 
         # except:
-            
-def excluirSolicitacao(request):
+
+def excluirSolicitacao(request, id_solicitacao):
+    incidente = get_object_or_404(Solicitacao, id_incidentes = id_solicitacao)
+    incidente.delete()
     return redirect("/cadastro/dashboard")
