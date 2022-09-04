@@ -37,8 +37,5 @@ def cadastro(request):
 
         # except:
             
-        
-
-# def entrada(request):
-#     return render(request, 'entrada.html')
-        
+def excluirSolicitacao(request):
+    return redirect("/cadastro/dashboard")

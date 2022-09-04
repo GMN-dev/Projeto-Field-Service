@@ -21,7 +21,7 @@
         '<tr>' +
           '<td>' + count.chamado + '</td>' +
           '<td>' + count.data_incidente + '</td>' +
-          '<td>' + count.informante + '</td>' +
+          '<td>' + count.informante +  '</td>' +
           '<td>' + count.operacao + '</td>' +
           '<td>' + count.andar + 'º</td>' +
           '<td>' + count.periferico + '</td>' +
@@ -30,7 +30,7 @@
           '<td><button type="button" class="btn btn-secondary btn-sm">Editar</button> ' +
           '<button type="button" class="btn btn-danger btn-sm">Excluir</button></td>' +
         '</tr>'
-    })
+    })  
   }
 
   feather.replace({ 'aria-hidden': 'true' })
@@ -63,5 +63,6 @@
       }
     }
   })
+
 
 })()
