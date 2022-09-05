@@ -2,6 +2,7 @@ from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblSolicitacao
 from django.contrib import messages
+from django.http import HttpResponse
 
 # Create your views here.
 def cadastro(request):
@@ -11,21 +12,21 @@ def cadastro(request):
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
         informante = request.POST.get('gestor')
-        operacao = request.POST.get('operacao')
+        operacao = request.POST.get("operacao")
         andar = request.POST.get('andar')
         periferico = request.POST.get("periferico")
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
         
-        # try:
+        # # try:
         migracao = TblSolicitacao.objects.create(
         chamado = chamado, 
         data_incidentes = data_incidente, 
-        informante = informante,
+        solicitante = informante,
         operacao = operacao,
         andar = andar,
         periferico = periferico,
-        motivo_solicitacao = motivo,
+        motivo = motivo,
         observacao = observacao)
 
         migracao.save()
