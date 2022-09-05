@@ -1,6 +1,6 @@
+from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .models import Solicitacao
+from .models import TblSolicitacao
 from django.contrib import messages
 
 # Create your views here.
@@ -18,16 +18,15 @@ def cadastro(request):
         observacao = request.POST.get("obs")
         
         # try:
-        migracao = Solicitacao.objects.create(
+        migracao = TblSolicitacao.objects.create(
         chamado = chamado, 
-        data_incidente = data_incidente, 
+        data_incidentes = data_incidente, 
         informante = informante,
         operacao = operacao,
         andar = andar,
         periferico = periferico,
         motivo_solicitacao = motivo,
         observacao = observacao)
-         
 
         migracao.save()
 
@@ -37,7 +36,14 @@ def cadastro(request):
 
         # except:
 
+
+
 def excluirSolicitacao(request, id_solicitacao):
-    incidente = get_object_or_404(Solicitacao, id_incidentes = id_solicitacao)
-    incidente.delete()
-    return redirect("/cadastro/dashboard")
+    try:
+        incidente = get_object_or_404(TblSolicitacao, id_incidentes = id_solicitacao)
+        incidente.delete()
+        messages.add_message(request, constants.SUCCESS, "Incidente deletado")
+        return redirect("/cadastro/dashboard")
+    except:
+        messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
+        return redirect("/cadastro/dashboard")

@@ -5,8 +5,9 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from tabnanny import verbose
+from tkinter import CASCADE
 from django.db import models
-
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -122,19 +123,27 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Solicitacao(models.Model):
-    id_incidentes = models.AutoField(primary_key=True)
-    chamado = models.IntegerField(blank=False, null=False)
-    data_incidente = models.DateField(blank=False, null=False)
-    informante = models.CharField(max_length=30, blank=False, null=False)
-    operacao = models.CharField(max_length=30, blank=False, null=False)
-    andar = models.IntegerField(blank=False, null=False)
-    periferico = models.CharField(max_length=30, blank=False, null=False)
-    motivo_solicitacao = models.CharField(max_length=30, blank=False, null=False)
-    observacao = models.TextField(max_length=250 ,blank=True, null=True)
-    
+
+class TblOperacao(models.Model):
+    operacao = models.CharField(unique=True, max_length=15)
+    qtd_solicitacao = models.IntegerField(blank=True, null=True)
+
     class Meta:
-        db_table = 'solicitacao'
-    
+        managed = False
+        db_table = 'tbl_operacao'
     
 
+
+class TblSolicitacao(models.Model):
+    chamado = models.CharField(max_length=7)
+    data_incidentes = models.DateField(verbose_name="Data do Incidente")
+    solicitante = models.CharField(max_length=30)
+    operacao = models.ForeignKey(TblOperacao, on_delete=models.PROTECT, db_column='operacao')
+    andar = models.IntegerField()
+    periferico = models.CharField(max_length=10)
+    motivo = models.CharField(max_length=15)
+    observacao = models.TextField(null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'tbl_solicitacao'

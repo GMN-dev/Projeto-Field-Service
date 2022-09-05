@@ -1,9 +1,14 @@
-from ..models import Solicitacao
+from ..models import TblSolicitacao, TblOperacao
 from rest_framework import serializers
 
 
-class SolicitacaoSerializer(serializers.ModelSerializer):
+class TblSolicitacaoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Solicitacao
+        model = TblSolicitacao
         fields = ('id_incidentes', 'chamado', 'data_incidente', 'operacao', 'andar', 'informante', 'periferico', 'motivo_solicitacao', "observacao")
 
+
+class DashboardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model: TblOperacao
+        fields = ('operacao', 'qtd_Solicitacao')
