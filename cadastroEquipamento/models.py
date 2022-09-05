@@ -123,7 +123,7 @@ class DjangoSession(models.Model):
 
 
 class TblOperacao(models.Model):
-    operacao = models.CharField(unique=True, max_length=15)
+    operacao = models.CharField(max_length=15)
     qtd_solicitacao = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -135,7 +135,7 @@ class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7)
     data_incidentes = models.DateField()
     solicitante = models.CharField(max_length=30)
-    operacao = models.ForeignKey(TblOperacao, models.DO_NOTHING, db_column='operacao', unique=True)
+    operacao = models.CharField(max_length=15)
     andar = models.IntegerField()
     periferico = models.CharField(max_length=10)
     motivo = models.CharField(max_length=15)
