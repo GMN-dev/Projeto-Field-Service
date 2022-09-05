@@ -135,7 +135,7 @@ class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7)
     data_incidentes = models.DateField()
     solicitante = models.CharField(max_length=30)
-    operacao = models.ForeignKey(TblOperacao, models.DO_NOTHING, db_column='operacao', unique=True)
+    operacao = models.ForeignKey(TblOperacao, models.DO_NOTHING, db_column='operacao')
     andar = models.IntegerField()
     periferico = models.CharField(max_length=10)
     motivo = models.CharField(max_length=15)
