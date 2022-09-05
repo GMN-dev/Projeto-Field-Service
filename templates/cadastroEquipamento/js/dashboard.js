@@ -30,12 +30,12 @@
     }).forEach(data => {
       tbody += "<tr scope='row'>";
       tbody += `<td> ${data.chamado} </td>`;
-      tbody += `<td> ${data.data_incidente}</td>`;
-      tbody += `<td> ${data.informante} </td>`;
+      tbody += `<td> ${data.data_incidentes}</td>`;
+      tbody += `<td> ${data.solicitante} </td>`;
       tbody += `<td> ${data.operacao}</td>`;
       tbody += `<td> ${data.andar}</td>`;
       tbody += `<td> ${data.periferico}</td>`;
-      tbody += `<td> ${data.motivo_solicitacao}</td>`;
+      tbody += `<td> ${data.motivo}</td>`;
       tbody += `<td> ${data.observacao}</td>`;
       tbody += "<td><button type='button' class='btn btn-secondary btn-sm'>Editar</button> " +
       "<button type='button' class='btn btn-danger btn-sm'>Excluir</button></td><tr>";
