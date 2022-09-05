@@ -208,10 +208,10 @@
           <nav aria-label="Page navigation">
             <ul class="pagination">
               <li class="page-item">
-                <button class="page-link" id="prevButton">Prev</button>
+                <button class="page-link" id="prevButton">&lt;</button>
               </li>
               <li class="page-item">
-                <button class="page-link" id="nextButton">Next</button>
+                <button class="page-link" id="nextButton">&gt;</button>
               </li>
             </ul>
           </nav>
@@ -232,14 +232,14 @@
               <hr class="my-3">
               <div class="col-lg-3">
                 <label for="chamado" class="form-label">Nº Chamado:</label>
-                <input type="number" name="chamado" class="form-control" id="cel" placeholder="" value="" required>
+                <input type="number" name="chamado" class="form-control" id="chamado" placeholder="" value="" required>
                 <div class="invalid-feedback">
                   Informe o Número do chamado.
                 </div>
               </div>
               <div class="col-sm-4">
                 <label for="data" class="form-label">Data Incidente:</label>
-                <input type="date" name="data" class="form-control" id="cel" placeholder="" value="" min="0" required>
+                <input type="date" name="data" class="form-control" id="data" placeholder="" value="" min="0" required>
                 <div class="invalid-feedback">
                   Informe uma data valida.
                 </div>
@@ -273,7 +273,7 @@
               </div>
               <div class="col-sm-3">
                 <label for="andar" class="form-label">Andar:</label>
-                <input type="number" name="andar" class="form-control" id="cel" value="" min="1" max="6" required>
+                <input type="number" name="andar" class="form-control" id="andar" value="" min="1" max="6" required>
                 <div class="invalid-feedback">
                   Informe o número do andar.
                 </div>
