@@ -129,6 +129,9 @@ class TblOperacao(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_operacao'
+    
+    def __str__(self):
+        return self.operacao
 
 
 class TblSolicitacao(models.Model):
@@ -142,5 +145,7 @@ class TblSolicitacao(models.Model):
     observacao = models.TextField()
 
     class Meta:
+        ordering = ('-data_incidentes',)
         managed = False
         db_table = 'tbl_solicitacao'
+

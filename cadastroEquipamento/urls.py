@@ -6,8 +6,8 @@ from .api.views import DashboardView, TblSolicitacaoView
 from rest_framework import routers
 
 route = routers.DefaultRouter()
-route.register(r'dashboard', TblSolicitacaoView, basename="api-retirada")
-route.register(r'graph', DashboardView, basename="api-dashboard")
+route.register(r'incidentes', TblSolicitacaoView, basename="api-retirada")
+route.register(r'dashboard', DashboardView, basename="api-dashboard")
 
 urlpatterns = [
     path('dashboard/', views.cadastro, name='cadastrar'),
