@@ -254,18 +254,11 @@
               <div class="col-sm-5">
                 <label for="operacao" class="form-label">Operação:</label>
                 <select name="operacao" class="form-select" id="operacao" required>
-                  <option value=""></option>
-                  <option value="BAAS - Mongeral">BAAS - Mongeral</option>
-                  <option value="CAIXA Econ.">CAIXA Econ.</option>
-                  <option value="Comgás">Comgás</option>
-                  <option value="Creditas">Creditas</option>
-                  <option value="DLL">DLL</option>
-                  <option value="LATAM">LATAM</option>
-                  <option value="LATAM Pass">LATAM Pass</option>
-                  <option value="Planejamento">Planejamento</option>
-                  <option value="Sofisa">Sofisa</option>
-                  <option value="Stefanini">Stefanini</option>
-                  <option value="Via Varejo">Via Varejo</option>
+
+                  {% for op in operacoes  %}
+                    <option value="op.operacao">{{op.operacao}}</option>
+                  {% endfor %}
+
                 </select>
                 <div class="invalid-feedback">
                   Informe a operação.

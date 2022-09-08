@@ -123,15 +123,12 @@ class DjangoSession(models.Model):
 
 
 class TblOperacao(models.Model):
-    operacao = models.CharField(max_length=15)
+    operacao = models.CharField(unique=True, max_length=15)
     qtd_solicitacao = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'tbl_operacao'
-    
-    def __str__(self):
-        return self.operacao
 
 
 class TblSolicitacao(models.Model):
@@ -145,7 +142,5 @@ class TblSolicitacao(models.Model):
     observacao = models.TextField()
 
     class Meta:
-        ordering = ('-data_incidentes',)
         managed = False
         db_table = 'tbl_solicitacao'
-

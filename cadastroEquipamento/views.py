@@ -1,13 +1,14 @@
 from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TblSolicitacao
+from .models import TblOperacao, TblSolicitacao
 from django.contrib import messages
 from django.http import HttpResponse
 
 # Create your views here.
 def cadastro(request):
     if request.method == "GET":
-        return render(request, 'cadastroEquipamento/html/dashboard.html')
+        operacoesAtivas = TblOperacao.objects.all()
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas})
     if request.method == "POST":
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
@@ -18,7 +19,7 @@ def cadastro(request):
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
         
-        # # try:
+        
         migracao = TblSolicitacao.objects.create(
         chamado = chamado, 
         data_incidentes = data_incidente, 
@@ -28,14 +29,17 @@ def cadastro(request):
         periferico = periferico,
         motivo = motivo,
         observacao = observacao)
+        try:
+            migracao.save()
 
-        migracao.save()
-
-        messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
+            messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
         
-        return redirect('/cadastro/dashboard')
+            return redirect('/cadastro/dashboard')
 
-        # except:
+        except:
+            messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
+
+            return redirect('/cadastro/dashboard')
 
 
 
