@@ -116,7 +116,7 @@
   }
 
   //Render table *-Solicitações-*
-  renderTable()
+  // renderTable()
 
   //Render -Dashboard-
   renderDashboard()

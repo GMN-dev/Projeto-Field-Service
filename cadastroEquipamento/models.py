@@ -132,7 +132,7 @@ class TblOperacao(models.Model):
 
 
 class TblSolicitacao(models.Model):
-    chamado = models.CharField(max_length=7)
+    chamado = models.CharField(max_length=7, unique=True)
     data_incidentes = models.DateField()
     solicitante = models.CharField(max_length=30)
     operacao = models.CharField(max_length=15)
@@ -144,3 +144,6 @@ class TblSolicitacao(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_solicitacao'
+
+    def __str__(self) :
+        return self.chamado

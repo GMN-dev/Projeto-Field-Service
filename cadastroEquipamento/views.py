@@ -7,8 +7,10 @@ from django.http import HttpResponse
 # Create your views here.
 def cadastro(request):
     if request.method == "GET":
-        operacoesAtivas = TblOperacao.objects.all()
-        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas})
+        operacoesAtivas = TblOperacao.objects.values()
+        solicitacoes = TblSolicitacao.objects.all()
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':solicitacoes})
+    
     if request.method == "POST":
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
@@ -19,7 +21,6 @@ def cadastro(request):
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
         
-        
         migracao = TblSolicitacao.objects.create(
         chamado = chamado, 
         data_incidentes = data_incidente, 
@@ -29,16 +30,13 @@ def cadastro(request):
         periferico = periferico,
         motivo = motivo,
         observacao = observacao)
+
         try:
             migracao.save()
-
             messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
-        
             return redirect('/cadastro/dashboard')
-
         except:
             messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
-
             return redirect('/cadastro/dashboard')
 
 
@@ -49,6 +47,7 @@ def excluirSolicitacao(request, id_solicitacao):
         incidente.delete()
         messages.add_message(request, constants.SUCCESS, "Incidente deletado")
         return redirect("/cadastro/dashboard")
+    
     except:
         messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
         return redirect("/cadastro/dashboard")
