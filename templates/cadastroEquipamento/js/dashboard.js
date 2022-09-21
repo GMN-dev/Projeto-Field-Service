@@ -3,25 +3,22 @@
 
   let urlDashboard = '/cadastro/api/dashboard'
   let url = '/cadastro/api/incidentes/'
-  var tr = []
-
+  feather.replace({ 'aria-hidden': 'true' })
   
   //Fetch Data from API
   async function getData(uri) {
     const response = await fetch(uri)
-    tr = await response.json()
+    return response.json()
   }
 
-  
-  feather.replace({ 'aria-hidden': 'true' })
 
   async function renderDashboard(){
-    await getData(urlDashboard)
+    let dataApi = await getData(urlDashboard)
 
     let y = [];
     let x = [];
-
-    tr.forEach(data => {
+  
+    dataApi.forEach(data => {
       y.push(data.operacao)
       x.push(data.qtd_solicitacao)
     });
