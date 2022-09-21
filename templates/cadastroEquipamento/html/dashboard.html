@@ -69,8 +69,6 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search"
-      aria-label="Search">
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <a class="nav-link px-3" href="#">Sign out</a>
@@ -198,8 +196,6 @@
                 <th scope="col">Andar</th>
                 <th scope="col">Periférico</th>
                 <th scope="col">Motivo</th>
-                <th scope="col">Observações</th>
-                
               </tr>
             </thead>
             <tbody id="data">
@@ -212,9 +208,8 @@
                   <td>{{row.andar}}</td>
                   <td>{{row.periferico}}</td>
                   <td>{{row.motivo}}<td>
-                  <td>{{row.observacao}}</td>
-                  <!-- <td><button type='button' class='btn btn-secondary btn-sm'>Editar</button>
-                  <button type='button' class='btn btn-danger btn-sm'>Excluir</button></td> -->
+                  <td><button type='button' class='btn btn-secondary btn-sm'>Editar</button>
+                  <button type='button' class='btn btn-danger btn-sm'>Excluir</button></td>
                 </tr> 
               {% endfor %}
             </tbody>
