@@ -5,8 +5,9 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from email.policy import default
 from django.db import models
-
+from django.urls import reverse
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -124,10 +125,11 @@ class DjangoSession(models.Model):
 
 class TblOperacao(models.Model):
     operacao = models.CharField(unique=True, max_length=15)
-    qtd_solicitacao = models.IntegerField(blank=True, null=True)
+    celula = models.IntegerField(max_length=9999, default=0)
+    qtd_solicitacao = models.IntegerField(blank=True, default=0)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tbl_operacao'
 
 
@@ -142,8 +144,12 @@ class TblSolicitacao(models.Model):
     observacao = models.TextField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'tbl_solicitacao'
 
     def __str__(self) :
         return self.chamado
+
+    def get_absolute_url(self):
+        return reverse("incidente_details", kwargs={'chamado': self.chamado})
+    

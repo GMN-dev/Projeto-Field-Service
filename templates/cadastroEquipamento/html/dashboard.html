@@ -62,6 +62,11 @@
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
     }
+
+    .actives{
+      background: #007bff;
+    }
+
   </style>
 </head>
 <body>
@@ -83,75 +88,17 @@
         <div class="position-sticky pt-3">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">
                 <span data-feather="home" class="align-text-bottom"></span>
                 Dashboard
               </a>
             </li>
-            <!--<li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file" class="align-text-bottom"></span>
-                Orders
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="">
+                <span data-feather="settings" class="align-text-bottom"></span>
+                Configurações
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                Products
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="users" class="align-text-bottom"></span>
-                Customers
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                Estoque
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers" class="align-text-bottom"></span>
-                Integrations
-              </a>
-            </li>
-          </ul>
-
-          <h6
-            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-            <span>Saved reports</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-              <span data-feather="plus-circle" class="align-text-bottom"></span>
-            </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                Current month
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                Last quarter
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text" class="align-text-bottom"></span>
-                Year-end sale
-              </a>
-            </li>-->
           </ul>
         </div>
       </nav>
@@ -161,9 +108,9 @@
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
+            {% comment %} <div class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
-            </div>
+            </div> {% endcomment %}
             <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
               <span data-feather="calendar" class="align-text-bottom"></span>
               Mês
@@ -201,21 +148,68 @@
               </tr>
             </thead>
             <tbody id="data">
+              {% comment %} Criando tabela solicitações {% endcomment %}
               {% for row in solicitacoes %}
                 <tr>
-                  <td>{{row.chamado}}</td>
+                  <td><a href="{{ row.get_absolute_url }}"> {{row.chamado}} </a></td>
                   <td>{{row.data_incidentes}}</td>
                   <td>{{row.solicitante}}</td>
                   <td>{{row.operacao}}</td>
                   <td>{{row.andar}}</td>
                   <td>{{row.periferico}}</td>
                   <td>{{row.motivo}}<td>
-                  <td><button type='button' class='btn btn-secondary btn-sm'>Editar</button>
-                  <button type='button' class='btn btn-danger btn-sm'>Excluir</button></td>
                 </tr> 
               {% endfor %}
+              {% comment %} Fim da tabela {% endcomment %}
             </tbody>
           </table>
+
+
+          <nav aria-label="Page navigation example">
+            {% comment %} Começo da paginação {% endcomment %}
+            <ul class="pagination">
+
+              {% if solicitacoes.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.previous_page_number}}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item ">
+                <a class="page-link" href="#" aria-label="Previous" >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% endif %}
+              
+
+              {% for num in solicitacoes.paginator.page_range %}
+                {% if solicitacao.number == num %}
+                  <li class="page-item active"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                {% else %}
+                  <li class="page-item "><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                  
+                  {% endif %} 
+              {% endfor %}
+              
+              
+              {% if solicitacoes.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.next_page_number}}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+            {% comment %} Fim da paginação {% endcomment %}
+          </nav>
         </div>
       </main>
     </div>
@@ -228,12 +222,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-0">
-          <form method="post" action="{% url 'cadastrar' %}" class="needs-validation" novalidate>{% csrf_token %}
+          <form method="post" action="{% url 'dashboard' %}" class="needs-validation" novalidate>{% csrf_token %}
             <div class="row g-3">
               <hr class="my-3">
               <div class="col-lg-3">
                 <label for="chamado" class="form-label">Nº Chamado:</label>
-                <input type="number" name="chamado" class="form-control" id="chamado" placeholder="" value="" required>
+                <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="" required>
                 <div class="invalid-feedback">
                   Informe o Número do chamado.
                 </div>

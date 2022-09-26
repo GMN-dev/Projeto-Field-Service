@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao
 from django.contrib import messages
 from django.http import HttpResponse
-from django.core.paginator import Paginator
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -13,15 +12,22 @@ def cadastro(request):
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
         operacoesAtivas = TblOperacao.objects.values()
         solicitacoes = TblSolicitacao.objects.all()
-        
+
         # =-=-=-=- Paginação =-=-=-=-=
         parametro_page = request.GET.get("page", '1')
-        parametro_limite = request.GET.get('limit', '25')
-        
-        solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
-        page = solicitacoes_paginator.page(parametro_page)
+        parametro_limite = request.GET.get('limit', '5')
 
-        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page})
+        if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
+            parametro_limite = 25
+
+        solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
+        
+        try:
+            page = solicitacoes_paginator.page(parametro_page)
+        except (EmptyPage, PageNotAnInteger): 
+            page = solicitacoes_paginator.page(1)
+
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page,})
     
     if request.method == "POST":
         chamado = request.POST.get('chamado')
@@ -33,34 +39,58 @@ def cadastro(request):
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
         
-        migracao = TblSolicitacao.objects.create(
-        chamado = chamado, 
-        data_incidentes = data_incidente, 
-        solicitante = informante,
-        operacao = operacao,
-        andar = andar,
-        periferico = periferico,
-        motivo = motivo,
-        observacao = observacao)
+        try:     
+            migracao = TblSolicitacao.objects.create(
+            chamado = chamado, 
+            data_incidentes = data_incidente, 
+            solicitante = informante,
+            operacao = operacao,
+            andar = andar,
+            periferico = periferico,
+            motivo = motivo,
+            observacao = observacao)
 
-        try:
-            migracao.save()
-            messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
-            return redirect('/cadastro/dashboard')
+            try:
+                incremento = TblOperacao.objects.get(operacao = operacao)
+                incremento.qtd_solicitacao += 1
+                incremento.save()
+
+                migracao.save()
+                messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
+            except:
+                messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
+
         except:
-            messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
-            return redirect('/cadastro/dashboard')
+            messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
+                    
+        
+        return redirect('/cadastro/dashboard')
 
+
+
+def incidente_details(request, chamado):
+    incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
+    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente}) 
 
 
 
 def excluirSolicitacao(request, id_solicitacao):
     try:
-        incidente = get_object_or_404(TblSolicitacao, id_incidentes = id_solicitacao)
+        # pegando objeto do banco a ser excluido
+        incidente = get_object_or_404(TblSolicitacao, id = id_solicitacao)
+        # =-=-=-=-= excluir registro na quantidade de operações =-=-=-=-=-
+        excluir_qtd_solicitacao = TblOperacao.objects.get(operacao = incidente.operacao)
+        excluir_qtd_solicitacao.qtd_solicitacao -= 1
+        excluir_qtd_solicitacao.save()
+        # =-=-=-=-=-==-==--=-=-=-=-=-=
+        
+        # apagando incidente das solicitacoes
         incidente.delete()
+
         messages.add_message(request, constants.SUCCESS, "Incidente deletado")
         return redirect("/cadastro/dashboard")
     
     except:
         messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
         return redirect("/cadastro/dashboard")
+

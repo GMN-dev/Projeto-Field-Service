@@ -53,9 +53,6 @@
     })
   }
 
-  //Render table *-Solicitações-*
-  // renderTable()
-
   //Render -Dashboard-
   renderDashboard()
 })()
