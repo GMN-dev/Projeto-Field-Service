@@ -125,7 +125,7 @@ class DjangoSession(models.Model):
 
 class TblOperacao(models.Model):
     operacao = models.CharField(unique=True, max_length=15)
-    celula = models.IntegerField(max_length=9999, default=0)
+    celula = models.IntegerField(default=0)
     qtd_solicitacao = models.IntegerField(blank=True, default=0)
 
     class Meta:

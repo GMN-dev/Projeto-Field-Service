@@ -94,7 +94,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="">
+              <a class="nav-link active" aria-current="page" href="{% url 'configurarDashboard' %}">
                 <span data-feather="settings" class="align-text-bottom"></span>
                 Configurações
               </a>
@@ -176,7 +176,7 @@
                 </a>
               </li>
               {% else %}
-              <li class="page-item ">
+              <li class="page-item disabled ">
                 <a class="page-link" href="#" aria-label="Previous" >
                   <span aria-hidden="true">&laquo;</span>
                 </a>

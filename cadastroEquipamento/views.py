@@ -18,7 +18,7 @@ def cadastro(request):
         parametro_limite = request.GET.get('limit', '5')
 
         if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
-            parametro_limite = 25
+            parametro_limite = 5
 
         solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
         
@@ -89,8 +89,15 @@ def excluirSolicitacao(request, id_solicitacao):
 
         messages.add_message(request, constants.SUCCESS, "Incidente deletado")
         return redirect("/cadastro/dashboard")
-    
+
+        # Caso erro:    
     except:
         messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
         return redirect("/cadastro/dashboard")
+
+
+
+def configurarDashboard(request):
+    if request.method == 'GET':
+        return render(request, 'cadastroEquipamento/html/settings_dashboard.html')
 
