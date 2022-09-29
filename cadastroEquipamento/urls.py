@@ -12,7 +12,7 @@ urlpatterns = [
     path('dashboard/', views.cadastro, name='dashboard'),
     path('incidente/<slug:chamado>', views.incidente_details, name='incidente_details'),
     path("deletar/incidente/<int:id_solicitacao>", views.excluirSolicitacao, name="deletar"),
-    path('dashboard/configuracao', views.configurarDashboard, name="configurarDashboard"),
+    path('dashboard/operacoes', views.operacoesAtivas, name="operacoesAtivas"),
     path('api/', include(route.urls)) 
     # path('entrada/', views.entrada, name='entrada'),s
 ] 

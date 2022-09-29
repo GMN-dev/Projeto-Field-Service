@@ -7,9 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
-    <title>{{ incidente.chamado }}</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer/">
-<link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>Chamado: {{ incidente.chamado }}</title>
+    <link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -87,7 +86,7 @@
     
     <!-- Custom styles for this template -->
   </head>
-  <body class="d-flex flex-column h-100">
+  <body class="">
     
 <!-- Begin page content -->
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1 shadow">
@@ -102,36 +101,64 @@
     </div>
   </div>
 </header>
-<main class="flex-shrink-0">
-  <div class="container">
-    <h1 class="mt-5">Chamado:  {{incidente.chamado}}</h1>
-    <p class="lead">
-        Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
-        Solicitante: <strong>{{incidente.solicitante}}</strong> <br>
-        Operação: <strong>{{incidente.operacao}}</strong> <br>
-        Célula: <strong>{{incidente.celula}}</strong> <br>  
-        Andar: <strong>{{incidente.andar}}</strong> <br>
-        Periférico: <strong>{{incidente.periferico}}</strong> <br>
-        Motivo: <strong>{{incidente.motivo}}</strong>
-    </p>
-    <hr>
+<div class="container-fluid">
+  <div class="row">
+
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'operacoesAtivas' %}">
+              <span data-feather="settings" class="align-text-bottom"></span>
+              Operações
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page">
+              <span data-feather="user" class="align-text-bottom"></span>
+              Usuários
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     
-    <div class="h-100 p-5 bg-light border rounded-3">
-        <p>{{incidente.observacao}}</p>
-    </div>
-    <div id="container_btns">
-        <button type='button' class='btn btn-secondary btn-sm'>Editar</button>
-        <button type='button' class='btn btn-danger btn-sm'> <a href="{% url 'deletar' incidente.id %}">Excluir</a></button>
-    </div>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="container">
+        <h1 class="mt-5">Chamado:  {{incidente.chamado}}</h1>
+        <p class="lead">
+            Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
+            Solicitante: <strong>{{incidente.solicitante}}</strong> <br>
+            Operação: <strong>{{incidente.operacao}}</strong> <br>
+            Célula: <strong>{{incidente.celula}}</strong> <br>  
+            Andar: <strong>{{incidente.andar}}</strong> <br>
+            Periférico: <strong>{{incidente.periferico}}</strong> <br>
+            Motivo: <strong>{{incidente.motivo}}</strong>
+        </p>
+        <hr>
+        
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <p>{{incidente.observacao}}</p>
+        </div>
+        <div id="container_btns">
+            <button type='button' class='btn btn-secondary btn-sm'> <a href="{% url 'deletar' incidente.id %}">Editar</a></button>
+            <button type='button' class='btn btn-danger btn-sm'> <a href="{% url 'deletar' incidente.id %}">Excluir</a></button>
+        </div>
+    </main>
+
+  </div>
 </div>
 
-</main>
-
-<footer class="footer mt-auto py-3 bg-light">
-  <div class="container">
-    <span class="text-muted">Stefanini It Solution.</span>
-  </div>
-</footer>
-
-  </body>
+<script src="{% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'cadastroEquipamento/assets/dist/js/feather.min.js' %}"></script>
+<script src="{% static 'cadastroEquipamento/assets/dist/js/Chart.min.js' %}"></script>
+<script src="{% static 'cadastroEquipamento/js/form-validation.js' %}"></script>
+{% comment %} <script src="{% static 'cadastroEquipamento/js/dashboard.js' %}"></script> {% endcomment %}
+</body>
 </html>

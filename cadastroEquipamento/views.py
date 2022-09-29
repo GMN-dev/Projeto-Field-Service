@@ -1,3 +1,4 @@
+from importlib.metadata import requires
 from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao
@@ -86,12 +87,14 @@ def excluirSolicitacao(request, id_solicitacao):
         
         # apagando incidente das solicitacoes
         incidente.delete()
-
+        # mensagem de sucesso
         messages.add_message(request, constants.SUCCESS, "Incidente deletado")
         return redirect("/cadastro/dashboard")
 
         # Caso erro:    
     except:
+
+        #mensagem de erro
         messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
         return redirect("/cadastro/dashboard")
 
@@ -101,3 +104,8 @@ def configurarDashboard(request):
     if request.method == 'GET':
         return render(request, 'cadastroEquipamento/html/settings_dashboard.html')
 
+
+def operacoesAtivas(request):
+    if request.method == 'GET':
+        operacoes = TblOperacao.objects.all()
+        return render(request, 'cadastroEquipamento/html/operacoes.html', {'operacoes':operacoes})

@@ -94,23 +94,25 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'configurarDashboard' %}">
+              <a class="nav-link active" aria-current="page" href="{% url 'operacoesAtivas' %}">
                 <span data-feather="settings" class="align-text-bottom"></span>
-                Configurações
+                Operações
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page">
+                <span data-feather="user" class="align-text-bottom"></span>
+                Usuários
               </a>
             </li>
           </ul>
         </div>
       </nav>
-
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            {% comment %} <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
-            </div> {% endcomment %}
             <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
               <span data-feather="calendar" class="align-text-bottom"></span>
               Mês
@@ -135,7 +137,7 @@
             {% endfor %} 
           {% endif %}
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-bordered table-hover table-condensed">
             <thead>
               <tr>
                 <th scope="col">Chamado</th>
@@ -168,7 +170,6 @@
           <nav aria-label="Page navigation example">
             {% comment %} Começo da paginação {% endcomment %}
             <ul class="pagination">
-
               {% if solicitacoes.has_previous %}
               <li class="page-item">
                 <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.previous_page_number}}" aria-label="Previous">
@@ -185,12 +186,11 @@
               
 
               {% for num in solicitacoes.paginator.page_range %}
-                {% if solicitacao.number == num %}
+                {% if solicitacoes.number == num %}
                   <li class="page-item active"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
                 {% else %}
-                  <li class="page-item "><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
-                  
-                  {% endif %} 
+                  <li class="page-item"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                {% endif %}
               {% endfor %}
               
               
@@ -307,6 +307,7 @@
       </div>
     </div>
   </div>
+  
   <script src="{% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/assets/dist/js/feather.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/assets/dist/js/Chart.min.js' %}"></script>
