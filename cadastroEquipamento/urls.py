@@ -9,10 +9,11 @@ route.register(r'incidentes', TblSolicitacaoView, basename="api-retirada")
 route.register(r'dashboard', DashboardView, basename="api-dashboard")
 
 urlpatterns = [
-    path('dashboard/', views.cadastro, name='dashboard'),
+    path('dashboard/', views.dashboard_incidentes, name='dashboard'),
     path('incidente/<slug:chamado>', views.incidente_details, name='incidente_details'),
     path("deletar/incidente/<int:id_solicitacao>", views.excluirSolicitacao, name="deletar"),
-    path('dashboard/operacoes', views.operacoesAtivas, name="operacoesAtivas"),
+    path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
+    path('operacoes/<str:operacao>', views.operacao_details, name="operacao_details"),
     path('api/', include(route.urls)) 
     # path('entrada/', views.entrada, name='entrada'),s
 ] 

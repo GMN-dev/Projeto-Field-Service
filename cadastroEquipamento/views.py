@@ -8,28 +8,36 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
-def cadastro(request):
+def dashboard_incidentes(request):
     if request.method == "GET":
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
         operacoesAtivas = TblOperacao.objects.values()
         solicitacoes = TblSolicitacao.objects.all()
 
         # =-=-=-=- Paginação =-=-=-=-=
+        # Parâmetro minimo
         parametro_page = request.GET.get("page", '1')
+        
+        #Parâmetro maximo
         parametro_limite = request.GET.get('limit', '5')
 
+        # Evitar páginas inexistentes
         if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
             parametro_limite = 5
 
+        # Definindo Paginação
         solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
         
+        # Evitar paginas vazias ou que nao sejam numero inteiros
         try:
             page = solicitacoes_paginator.page(parametro_page)
         except (EmptyPage, PageNotAnInteger): 
             page = solicitacoes_paginator.page(1)
 
+        # Renderizar página
         return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page,})
-    
+
+    # Registrando variaveis    
     if request.method == "POST":
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
@@ -40,6 +48,7 @@ def cadastro(request):
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
         
+        # Criando objeto com variaveis criadas
         try:     
             migracao = TblSolicitacao.objects.create(
             chamado = chamado, 
@@ -51,6 +60,7 @@ def cadastro(request):
             motivo = motivo,
             observacao = observacao)
 
+            # Aumentando a quantidade de incidentes
             try:
                 incremento = TblOperacao.objects.get(operacao = operacao)
                 incremento.qtd_solicitacao += 1
@@ -61,15 +71,17 @@ def cadastro(request):
             except:
                 messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
 
+        # Caso o chamado já exista
         except:
             messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
                     
-        
-        return redirect('/cadastro/dashboard')
+        # renderizar página
+        return redirect('/home/dashboard')
 
 
 
 def incidente_details(request, chamado):
+    # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
     return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente}) 
 
@@ -87,25 +99,36 @@ def excluirSolicitacao(request, id_solicitacao):
         
         # apagando incidente das solicitacoes
         incidente.delete()
-        # mensagem de sucesso
+        
         messages.add_message(request, constants.SUCCESS, "Incidente deletado")
-        return redirect("/cadastro/dashboard")
+        return redirect("/home/dashboard")
 
         # Caso erro:    
     except:
-
-        #mensagem de erro
         messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
-        return redirect("/cadastro/dashboard")
+        return redirect("/home/dashboard")
 
-
-
-def configurarDashboard(request):
-    if request.method == 'GET':
-        return render(request, 'cadastroEquipamento/html/settings_dashboard.html')
 
 
 def operacoesAtivas(request):
     if request.method == 'GET':
+        # Pegando todas as operações
         operacoes = TblOperacao.objects.all()
         return render(request, 'cadastroEquipamento/html/operacoes.html', {'operacoes':operacoes})
+
+
+
+def operacao_details(request, operacao):
+    if request.method == 'GET':
+        try:
+            # pegando operação em específico    
+            operacaoBanco = get_object_or_404(TblOperacao, operacao = operacao)
+            # pegando incidentes desta operacao
+            incidentes_operacao = TblSolicitacao.objects.filter(operacao = operacaoBanco.operacao)
+
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
+        
+        # Caso Error
+        except:
+            messages.add_message(request, constants.ERROR,"Operação nao encontrada")
+            return redirect("home/operacoes")

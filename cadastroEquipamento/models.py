@@ -127,11 +127,14 @@ class TblOperacao(models.Model):
     operacao = models.CharField(unique=True, max_length=15)
     celula = models.IntegerField(default=0)
     qtd_solicitacao = models.IntegerField(blank=True, default=0)
+    observacao = models.TextField()
 
     class Meta:
         managed = True
         db_table = 'tbl_operacao'
-
+    
+    def get_absolute_url(self):
+            return reverse("operacao_details", kwargs={'operacao': self.operacao})
 
 class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7, unique=True)
