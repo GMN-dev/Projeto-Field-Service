@@ -61,6 +61,20 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      .header-operacoes{
+        display: flex;
+        flex-wrap: wrap;
+        align-items:flex-end;
+        justify-content:space-between;
+      }
+
+      .operacao_celula{
+        display: flex;
+        flex-wrap: wrap;
+        align-items:center;
+        justify-content:space-evenly;
+      }
+
       </style>
 </head>
 <body>
@@ -105,13 +119,33 @@
           </nav>
         
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-              <div class="py-3">
-                <h1>Operações</h1>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 py-3" role="search">
-                  <input type="search" class="form-control" placeholder="Search..." aria-label="Search" style="width:20vw">
-                </form>
+            <div class=" container-fluid">
+              <div class="py-3 container-fluid header-operacoes">
+                <div>
+                  <h1>Operações</h1>
+                  <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 py-3" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search" style="width:20vw">
+                  </form>
+                </div>
+                <div
+                  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+                  <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                      <button type="button" class="btn btn-sm btn-outline-secondary px-3" data-bs-toggle="modal"
+                        data-bs-target="#modalSheet">Nova Operação</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="table-responsive">
+              
+              {% if messages %}
+              <br />
+                {% for message in messages %}
+                  <div class="alert {{message.tags}}">{{message}}</div>
+                {% endfor %} 
+              {% endif %}
+
+              <div class="table-responsive container-fluid">
                 <table class="table table-striped table-bordered table-hover table-condensed">
                   <thead>
                     <tr>
@@ -131,8 +165,50 @@
                   </tbody>
                 </table>
               </div>
+            </div>
           </main>
-
+          <div class="modal modal-sheet py-5 fade" role="dialog" id="modalSheet">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                  <h3 class="modal-title">Registrar Operação</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-0">
+                  <form method="post" action="{% url 'operacoesAtivas' %}" class="needs-validation" novalidate>{% csrf_token %}
+                    <div class="g-1">
+                      <hr class="my-3">
+                      <div class="operacao_celula">  
+                        <div class="col-lg-5">
+                          <label for="operacao" class="form-label">Nome da Operação:</label>
+                          <input type="text" name="operacao" class="form-control" id="operacao" value="" required>
+                          <div class="invalid-feedback">
+                            Informe o nome da Operação.
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <label for="celula" class="form-label">Célula:</label>
+                          <input type="number" name="celula" class="form-control" id="celula" placeholder="" value="" min="0" max="1000" required>
+                          <div class="invalid-feedback">
+                            Informe uma célula valida.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-11 my-4"  style="margin: 0 auto;">
+                        <label for="obs" class="form-label">Observações:</label>
+                        <textarea name="obs" class="form-control" id="obs" rows="5" value=""></textarea>
+                      </div> 
+                    </div>
+                    <hr class="my-4">
+                    <div class="modal-footer flex-column border-top-0">
+                      <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Registrar</button>
+                      <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>    
       <script src="{% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}"></script>

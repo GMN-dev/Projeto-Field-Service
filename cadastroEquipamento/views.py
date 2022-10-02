@@ -116,6 +116,28 @@ def operacoesAtivas(request):
         operacoes = TblOperacao.objects.all()
         return render(request, 'cadastroEquipamento/html/operacoes.html', {'operacoes':operacoes})
 
+    if request.method == 'POST':
+        #verificando a existencia do objeto no
+        # Criando objeto
+        try:
+            operacaoObjeto = TblOperacao.objects.create(
+                operacao = request.POST.get('operacao'),
+                celula = request.POST.get('celula'),
+                observacao = request.POST.get('obs')
+            )
+            # salvando objeto no banco
+            operacaoObjeto.save()
+
+            messages.add_message(request, constants.SUCCESS, 'Operação registrada!')
+
+        except:
+            # Caso erro
+            messages.add_message(request, constants.ERROR, 'Essa operação ja existe!')
+        
+    
+    return redirect('/home/operacoes/')    
+
+
 
 
 def operacao_details(request, operacao):
@@ -131,4 +153,22 @@ def operacao_details(request, operacao):
         # Caso Error
         except:
             messages.add_message(request, constants.ERROR,"Operação nao encontrada")
-            return redirect("home/operacoes")
+            return redirect("/home/operacoes/")
+
+
+
+def excluirOperacao(request, operacao):
+    try:
+        # Pegando operacao do banco
+        operacaoBanco = get_object_or_404(TblOperacao, operacao = operacao)
+        # Deletando operacao
+        operacaoBanco.delete()
+        
+        # mensagem de Sucesso
+        messages.add_message(request, constants.SUCCESS, "Operação deletada!")
+
+    except:
+        # caso error
+        messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
+
+    return redirect('/home/operacoes/')

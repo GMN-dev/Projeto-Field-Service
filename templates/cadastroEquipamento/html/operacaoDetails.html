@@ -73,14 +73,13 @@
         margin-right: 20px;
       }
 
-      a{
+      .tirar_decoration{
         text-decoration: none;
         color: white;
       }
-      a:hover{
+      .tirar_decoration:hover{
         color: white;
       }
-
 
     </style>
 
@@ -177,8 +176,8 @@
         </div>
 
         <div id="container_btns">
-            <button type='button' class='btn btn-secondary btn-sm'> <a href="#">Editar</a></button>
-            <button type='button' class='btn btn-danger btn-sm'> <a href="#">Excluir</a></button>
+            <button type='button' class='btn btn-secondary btn-sm '> <a class="tirar_decoration" href="#">Editar</a></button>
+            <button type='button' class='btn btn-danger btn-sm'> <a class="tirar_decoration" href="{% url 'excluirOperacao' operacao.operacao %}">Excluir</a></button>
         </div>
     </main>
 

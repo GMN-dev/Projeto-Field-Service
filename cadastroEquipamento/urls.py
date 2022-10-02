@@ -14,7 +14,9 @@ urlpatterns = [
     path("deletar/incidente/<int:id_solicitacao>", views.excluirSolicitacao, name="deletar"),
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
     path('operacoes/<str:operacao>', views.operacao_details, name="operacao_details"),
-    path('api/', include(route.urls)) 
+    path('operacoes/deletar/<str:operacao>', views.excluirOperacao, name="excluirOperacao"),
+    path('api/', include(route.urls))  
     # path('entrada/', views.entrada, name='entrada'),s
 ] 
 
+  
