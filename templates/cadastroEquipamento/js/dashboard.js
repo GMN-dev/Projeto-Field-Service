@@ -2,7 +2,7 @@
   'use strict'
 
   let urlDashboard = '/home/api/dashboard'
-  let url = '/home/api/incidentes/'
+  
   feather.replace({ 'aria-hidden': 'true' })
   
   //Fetch Data from API
