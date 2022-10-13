@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
-    <title>Chamado: {{ incidente.chamado }}</title>
+    <title>Operação: {{ operacao.operacao }}</title>
     <link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'cadastroEquipamento/css/dashboard.css' %}" rel="stylesheet">
-
+    <link rel = "shortcut icon" type = "imagem/x-icon" href = "{% static 'cadastroEquipamento/static/stf_logo1.png' %}"/>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -205,20 +205,20 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-0">
-                  <form method="post" action="{% url 'operacoesAtivas' %}" class="needs-validation" novalidate>{% csrf_token %}
+                  <form method="post" action="" class="needs-validation" novalidate>{% csrf_token %}
                     <div class="g-1">
                       <hr class="my-3">
                       <div class="operacao_celula">  
                         <div class="col-lg-5">
                           <label for="operacao" class="form-label">Nome da Operação:</label>
-                          <input type="text" name="operacao" class="form-control" id="operacao" value="" required>
+                          <input type="text" name="operacao" class="form-control" id="operacao" value="{{ operacao.operacao }}" required>
                           <div class="invalid-feedback">
                             Informe o nome da Operação.
                           </div>
                         </div>
                         <div class="col-sm-5">
                           <label for="celula" class="form-label">Célula:</label>
-                          <input type="number" name="celula" class="form-control" id="celula" placeholder="" value="" min="0" max="1000" required>
+                          <input type="number" name="celula" class="form-control" id="celula" placeholder="" value="{{ operacao.celula }}" min="0" max="1000" required>
                           <div class="invalid-feedback">
                             Informe uma célula valida.
                           </div>
@@ -226,7 +226,7 @@
                       </div>
                       <div class="col-lg-11 my-4"  style="margin: 0 auto;">
                         <label for="obs" class="form-label">Observações:</label>
-                        <textarea name="obs" class="form-control" id="obs" rows="5" value=""></textarea>
+                        <textarea name="obs" class="form-control" id="obs" rows="5" value="">{{ operacao.observacao }}</textarea>
                       </div> 
                     </div>
                     <hr class="my-4">
