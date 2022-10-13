@@ -172,3 +172,4 @@ def excluirOperacao(request, operacao):
         messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
 
     return redirect('/home/operacoes/')
+    
