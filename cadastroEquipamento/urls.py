@@ -13,10 +13,10 @@ urlpatterns = [
     path('incidente/<slug:chamado>', views.incidente_details, name='incidente_details'),
     path("deletar/incidente/<int:id_solicitacao>", views.excluirSolicitacao, name="deletar"),
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
-    path('operacoes/<str:operacao>', views.operacao_details, name="operacao_details"),
+    path('operacoes/<str:operacao>/<int:pk>', views.operacao_details, name="operacao_details"),
     path('operacoes/deletar/<str:operacao>', views.excluirOperacao, name="excluirOperacao"),
     path('api/', include(route.urls))  
-    # path('entrada/', views.entrada, name='entrada'),s
+    # path('entrada/', views.entrada, name='entrada'),
 ] 
 
   

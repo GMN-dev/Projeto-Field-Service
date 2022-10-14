@@ -21,7 +21,7 @@ class TblOperacao(models.Model):
         db_table = 'tbl_operacao'
     
     def get_absolute_url(self):
-            return reverse("operacao_details", kwargs={'operacao': self.operacao})
+            return reverse("operacao_details", kwargs={'operacao': self.operacao, 'pk':self.pk})
 
 class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7, unique=True)
