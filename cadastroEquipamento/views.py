@@ -2,7 +2,6 @@ from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao
 from django.contrib import messages
-from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -53,7 +52,7 @@ def dashboard_incidentes(request):
             chamado = chamado, 
             data_incidentes = data_incidente, 
             solicitante = informante,
-            operacao = operacao,
+            operacao = TblOperacao.objects.get(operacao = operacao),
             andar = andar,
             periferico = periferico,
             motivo = motivo,
@@ -139,19 +138,19 @@ def operacoesAtivas(request):
 
 
 
-def operacao_details(request, pk ,operacao):
+def operacao_details(request, pk):
     if request.method == 'GET':
         try:
             # pegando operação em específico    
-            operacaoBanco = get_object_or_404(TblOperacao, operacao = operacao)
+            operacaoBanco = get_object_or_404(TblOperacao, pk = pk)
             # pegando incidentes desta operacao
-            incidentes_operacao = TblSolicitacao.objects.filter(operacao = operacaoBanco.operacao)
-
+            incidentes_operacao = TblSolicitacao.objects.filter(pk = operacaoBanco.pk)
+            
             return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
         
         # Caso Erro
         except:
-            messages.add_message(request, constants.ERROR,"Operação nao encontrada")
+            messages.add_message(request, constants.ERROR,"Operação não encontrada.")
             return redirect("/home/operacoes/")
     
 

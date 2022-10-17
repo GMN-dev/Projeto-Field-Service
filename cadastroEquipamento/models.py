@@ -20,14 +20,17 @@ class TblOperacao(models.Model):
         managed = True
         db_table = 'tbl_operacao'
     
+    def __str__(self):
+        return self.operacao
+
     def get_absolute_url(self):
-            return reverse("operacao_details", kwargs={'operacao': self.operacao, 'pk':self.pk})
+            return reverse("operacao_details", kwargs={'pk':self.pk})
 
 class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7, unique=True)
     data_incidentes = models.DateField()
     solicitante = models.CharField(max_length=30)
-    operacao = models.CharField(max_length=15)
+    operacao = models.ForeignKey("TblOperacao", on_delete=models.PROTECT, related_name="Incidentes_ativos")
     andar = models.IntegerField()
     periferico = models.CharField(max_length=10)
     motivo = models.CharField(max_length=15)
