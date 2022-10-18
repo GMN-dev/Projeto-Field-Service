@@ -80,7 +80,14 @@
       a:hover{
         color: white;
       }
+      
+      .link-operacao a{
+        color: black;
+      }
+      .link-operacao a:hover{
+        text-decoration: underline;
 
+      }
 
     </style>
 
@@ -136,7 +143,7 @@
         <p class="lead">
             Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
             Solicitante: <strong>{{incidente.solicitante}}</strong> <br>
-            Operação: <strong>{{incidente.operacao}}</strong> <br>
+            Operação: <strong  class="link-operacao"><a href="{{incidente.operacao.get_absolute_url}}""> {{incidente.operacao}} </a></strong> <br>
             Célula: <strong>{{incidente.celula}}</strong> <br>  
             Andar: <strong>{{incidente.andar}}</strong> <br>
             Periférico: <strong>{{incidente.periferico}}</strong> <br>

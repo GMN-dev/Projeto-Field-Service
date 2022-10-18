@@ -139,14 +139,16 @@ def operacoesAtivas(request):
 
 
 def operacao_details(request, pk):
+    
+    # pegando instancia do banco
+    instanciaBanco = get_object_or_404(TblOperacao, pk = pk)
+    
     if request.method == 'GET':
-        try:
-            # pegando operação em específico    
-            operacaoBanco = get_object_or_404(TblOperacao, pk = pk)
+        try:        
             # pegando incidentes desta operacao
-            incidentes_operacao = TblSolicitacao.objects.filter(pk = operacaoBanco.pk)
+            incidentes_operacao = TblSolicitacao.objects.filter(operacao_id = instanciaBanco.pk)
             
-            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : instanciaBanco, 'incidentes_operacao' : incidentes_operacao}) 
         
         # Caso Erro
         except:
@@ -156,9 +158,6 @@ def operacao_details(request, pk):
 
     if request.method == 'POST':
         try:
-            # pegando instancia do banco
-            instanciaBanco = get_object_or_404(TblOperacao, pk = pk, operacao = operacao)
-
             # pegando informações do POST
             requestOperacao = request.POST.get('operacao')
             requestCel = request.POST.get('celula')
@@ -174,7 +173,10 @@ def operacao_details(request, pk):
             messages.add_message(request, constants.SUCCESS, "Alteração realizada com sucesso!")
 
         except:
+
+            # caso erro
             messages.add_message(request, constants.ERROR, "Essa operação já existe!")
+
         return redirect(instanciaBanco)
       
         
