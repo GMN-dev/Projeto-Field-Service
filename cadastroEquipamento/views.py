@@ -2,7 +2,6 @@ from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao
 from django.contrib import messages
-from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -53,7 +52,7 @@ def dashboard_incidentes(request):
             chamado = chamado, 
             data_incidentes = data_incidente, 
             solicitante = informante,
-            operacao = operacao,
+            operacao = TblOperacao.objects.get(operacao = operacao),
             andar = andar,
             periferico = periferico,
             motivo = motivo,
@@ -139,27 +138,26 @@ def operacoesAtivas(request):
 
 
 
-def operacao_details(request, pk ,operacao):
+def operacao_details(request, pk):
+    
+    # pegando instancia do banco
+    instanciaBanco = get_object_or_404(TblOperacao, pk = pk)
+    
     if request.method == 'GET':
-        try:
-            # pegando operação em específico    
-            operacaoBanco = get_object_or_404(TblOperacao, operacao = operacao)
+        try:        
             # pegando incidentes desta operacao
-            incidentes_operacao = TblSolicitacao.objects.filter(operacao = operacaoBanco.operacao)
-
-            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
+            incidentes_operacao = TblSolicitacao.objects.filter(operacao_id = instanciaBanco.pk)
+            
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : instanciaBanco, 'incidentes_operacao' : incidentes_operacao}) 
         
         # Caso Erro
         except:
-            messages.add_message(request, constants.ERROR,"Operação nao encontrada")
+            messages.add_message(request, constants.ERROR,"Operação não encontrada.")
             return redirect("/home/operacoes/")
     
 
     if request.method == 'POST':
         try:
-            # pegando instancia do banco
-            instanciaBanco = get_object_or_404(TblOperacao, pk = pk, operacao = operacao)
-
             # pegando informações do POST
             requestOperacao = request.POST.get('operacao')
             requestCel = request.POST.get('celula')
@@ -175,7 +173,10 @@ def operacao_details(request, pk ,operacao):
             messages.add_message(request, constants.SUCCESS, "Alteração realizada com sucesso!")
 
         except:
+
+            # caso erro
             messages.add_message(request, constants.ERROR, "Essa operação já existe!")
+
         return redirect(instanciaBanco)
       
         
