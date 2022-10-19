@@ -271,11 +271,12 @@
               <div class="col-md-4">
                 <label for="periferico" class="form-label">Periférico:</label>
                 <select name="periferico" class="form-select" id="periferico" required>
-                  <option value=""></option>
-                  <option value="Headset">Headset</option>
-                  <option value="Mouse">Mouse</option>
-                  <option value="Teclado">Teclado</option>
+                  {% for periferico in perifericos %}
+                    <option value="{{periferico.tipo}}">{{periferico.tipo}}</option>
+                  {% endfor %}  
                 </select>
+                
+                
                 <div class="invalid-feedback">
                   Informe o periférico.
                 </div>

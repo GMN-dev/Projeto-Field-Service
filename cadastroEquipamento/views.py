@@ -1,6 +1,6 @@
 from django.contrib.messages import constants
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TblOperacao, TblSolicitacao
+from .models import TblOperacao, TblSolicitacao, TblPeriferico
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -11,6 +11,7 @@ def dashboard_incidentes(request):
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
         operacoesAtivas = TblOperacao.objects.values()
         solicitacoes = TblSolicitacao.objects.all()
+        perifericos = TblPeriferico.objects.all()
 
         # =-=-=-=- Paginação =-=-=-=-=
         # Parâmetro minimo
@@ -33,7 +34,7 @@ def dashboard_incidentes(request):
             page = solicitacoes_paginator.page(1)
 
         # Renderizar página
-        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page,})
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'periferico':perifericos})
 
     # Registrando variaveis    
     if request.method == "POST":
@@ -93,7 +94,7 @@ def excluirSolicitacao(request, id_solicitacao):
         excluir_qtd_solicitacao = TblOperacao.objects.get(operacao = incidente.operacao)
         excluir_qtd_solicitacao.qtd_solicitacao -= 1
         excluir_qtd_solicitacao.save()
-        # =-=-=-=-=-==-==--=-=-=-=-=-=
+        # =-=-=-=-=-==-==--=-=-=-=-=-=-=-
         
         # apagando incidente das solicitacoes
         incidente.delete()
@@ -139,16 +140,14 @@ def operacoesAtivas(request):
 
 
 def operacao_details(request, pk):
-    
-    # pegando instancia do banco
-    instanciaBanco = get_object_or_404(TblOperacao, pk = pk)
-    
     if request.method == 'GET':
-        try:        
+        try:
+            # pegando operação em específico    
+            operacaoBanco = get_object_or_404(TblOperacao, pk = pk)
             # pegando incidentes desta operacao
-            incidentes_operacao = TblSolicitacao.objects.filter(operacao_id = instanciaBanco.pk)
+            incidentes_operacao = TblSolicitacao.objects.filter(pk = operacaoBanco.pk)
             
-            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : instanciaBanco, 'incidentes_operacao' : incidentes_operacao}) 
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
         
         # Caso Erro
         except:
@@ -158,6 +157,9 @@ def operacao_details(request, pk):
 
     if request.method == 'POST':
         try:
+            # pegando instancia do banco
+            instanciaBanco = get_object_or_404(TblOperacao, pk = pk)
+
             # pegando informações do POST
             requestOperacao = request.POST.get('operacao')
             requestCel = request.POST.get('celula')
@@ -173,10 +175,7 @@ def operacao_details(request, pk):
             messages.add_message(request, constants.SUCCESS, "Alteração realizada com sucesso!")
 
         except:
-
-            # caso erro
             messages.add_message(request, constants.ERROR, "Essa operação já existe!")
-
         return redirect(instanciaBanco)
       
         
@@ -185,13 +184,13 @@ def operacao_details(request, pk):
 def excluirOperacao(request, operacao):
     try:
         # Pegando operacao do banco
-        operacaoBanco = get_object_or_404(TblOperacao, operacao = operacao)
-        # Deletando operacao
-        operacaoBanco.delete()
+        operacaoBanco = TblOperacao.objects.get(operacao = operacao)
         
         # mensagem de Sucesso
         messages.add_message(request, constants.SUCCESS, "Operação deletada!")
-
+        
+        operacaoBanco.delete()
+         
     except:
         # caso error
         messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
