@@ -34,7 +34,7 @@ def dashboard_incidentes(request):
             page = solicitacoes_paginator.page(1)
 
         # Renderizar página
-        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'periferico':perifericos})
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'perifericos':perifericos})
 
     # Registrando variaveis    
     if request.method == "POST":
@@ -145,10 +145,10 @@ def operacao_details(request, pk):
             # pegando operação em específico    
             operacaoBanco = get_object_or_404(TblOperacao, pk = pk)
             # pegando incidentes desta operacao
-            incidentes_operacao = TblSolicitacao.objects.filter(pk = operacaoBanco.pk)
+            incidentes_operacao = TblSolicitacao.objects.filter(operacao = TblOperacao.objects.get(operacao = operacaoBanco.operacao))
             
             return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
-        
+         
         # Caso Erro
         except:
             messages.add_message(request, constants.ERROR,"Operação não encontrada.")

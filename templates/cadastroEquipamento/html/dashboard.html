@@ -67,6 +67,10 @@
       background: #007bff;
     }
 
+    #site{
+      
+    }
+
   </style>
 </head>
 <body>
@@ -145,6 +149,7 @@
                 <th scope="col">Chamado</th>
                 <th scope="col">Data Incidente</th>
                 <th scope="col">Informante</th>
+                <th scope="col">Site</th>
                 <th scope="col">Operação</th>
                 <th scope="col">Andar</th>
                 <th scope="col">Periférico</th>
@@ -158,6 +163,7 @@
                   <td><a href="{{ row.get_absolute_url }}"> {{row.chamado}} </a></td>
                   <td>{{row.data_incidentes}}</td>
                   <td>{{row.solicitante}}</td>
+                  <td>{{row.site}}</td>
                   <td>{{row.operacao}}</td>
                   <td>{{row.andar}}</td>
                   <td>{{row.periferico}}</td>
@@ -251,7 +257,7 @@
               <div class="col-sm-5">
                 <label for="operacao" class="form-label">Operação:</label>
                 <select name="operacao" class="form-select" id="operacao" required>
-
+                  <option value=""></option>
                   {% for op in operacoes  %}
                     <option value="{{op.operacao}}">{{op.operacao}}</option>
                   {% endfor %}
@@ -263,19 +269,33 @@
               </div>
               <div class="col-sm-3">
                 <label for="andar" class="form-label">Andar:</label>
-                <input type="number" name="andar" class="form-control" id="andar" value="" min="1" max="6" required>
+                <input type="text" name="andar" class="form-control" id="andar" value="" min="1" max="6" required>
                 <div class="invalid-feedback">
                   Informe o número do andar.
                 </div>
               </div>
+               
+              <div class="col-md-4">
+                <label for="site" class="form-label">Site:</label>
+                <select name="site" class="form-select" id="site" required>\
+                  <option value=""></option>
+                  <option value="Campina Grande">Campina Grande</option>
+                  <option value="Santana">Santana</option>
+                </select>
+                <div class="invalid-feedback">
+                  Informe o site da solicitação.
+                </div>
+              </div>
+
               <div class="col-md-4">
                 <label for="periferico" class="form-label">Periférico:</label>
+
                 <select name="periferico" class="form-select" id="periferico" required>
+                  <option value=""></option>
                   {% for periferico in perifericos %}
                     <option value="{{periferico.tipo}}">{{periferico.tipo}}</option>
                   {% endfor %}  
                 </select>
-                
                 
                 <div class="invalid-feedback">
                   Informe o periférico.
@@ -285,10 +305,10 @@
                 <label for="motivo" class="form-label">Motivo da Solicitação:</label>
                 <select name="motivo" class="form-select" id="motivo" required>
                   <option value=""></option>
-                  <option value="Extravio">Extravio</option>
-                  <option value="Mal Uso">Mal Uso</option>
-                  <option value="Novo">Novo</option>
-                  <option value="Quebra">Quebra</option>
+                  <option value="Extravio - Retirada indevida">Extravio - Retirada indevida</option>
+                  <option value="Adição Novo">Adição Novo</option>
+                  <option value="Quebra - Por Desgaste">Quebra - Por Desgaste</option>
+                  <option value="Quebra - Mal Uso">Quebra - Mal Uso</option>
                   <option value="Troca">Troca</option>
                 </select>
                 <div class="invalid-feedback">

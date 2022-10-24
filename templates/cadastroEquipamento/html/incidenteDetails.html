@@ -141,15 +141,18 @@
       <div class="container">
         <h1 class="mt-5">Chamado:  {{incidente.chamado}}</h1>
         <p class="lead">
+            SLA no prazo: <strong>{{incidente.sla}}</strong> <br>
             Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
-            Solicitante: <strong>{{incidente.solicitante}}</strong> <br>
+            Informante: <strong>{{incidente.solicitante}}</strong> <br>
+            Site: <strong>{{incidente.site}}</strong> <br>
             Operação: <strong  class="link-operacao"><a href="{{incidente.operacao.get_absolute_url}}""> {{incidente.operacao}} </a></strong> <br>
-            Célula: <strong>{{incidente.celula}}</strong> <br>  
+            Célula: <strong>{{incidente.operacao.celula}}</strong> <br>  
             Andar: <strong>{{incidente.andar}}</strong> <br>
+            PAS envolvidas: <strong>{{incidente.PAS}}</strong> <br>
             Periférico: <strong>{{incidente.periferico}}</strong> <br>
             Motivo: <strong>{{incidente.motivo}}</strong>
         </p>
-        <hr>
+        <hr> 
         
         <div class="h-100 p-5 bg-light border rounded-3">
             <p>{{incidente.observacao}}</p>
