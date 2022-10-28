@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 
@@ -25,6 +26,8 @@ class TblOperacao(models.Model):
     def get_absolute_url(self):
             return reverse("operacao_details", kwargs={'pk':self.pk})
 
+
+
 class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7, unique=True)
     sla = models.BooleanField(default=False)
@@ -35,8 +38,8 @@ class TblSolicitacao(models.Model):
     andar = models.CharField(max_length=10)
     periferico = models.CharField(max_length=10)
     motivo = models.CharField(max_length=15)
-    observacao = models.TextField()
-    
+    observacao = models.TextField(max_length=50)
+    pas = models.TextField(max_length=30)
 
     class Meta:
         managed = True
@@ -49,8 +52,12 @@ class TblSolicitacao(models.Model):
         return reverse("incidente_details", kwargs={'chamado': self.chamado})
 
 
+
+
+
 class TblPeriferico(models.Model):
     tipo = models.CharField(max_length=50)
+    qtd_periferico = models.IntegerField(blank=True, default=0)
 
     class Meta:
         managed = True

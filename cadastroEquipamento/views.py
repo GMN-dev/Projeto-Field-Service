@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao, TblPeriferico
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import HttpResponse
 
 
 # Create your views here.
@@ -38,6 +39,11 @@ def dashboard_incidentes(request):
 
     # Registrando variaveis    
     if request.method == "POST":
+        # if request.POST.get("sla") == "on":
+        #     sla = True
+        # else:
+        #     sla = False
+
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
         informante = request.POST.get('gestor')
@@ -46,8 +52,11 @@ def dashboard_incidentes(request):
         periferico = request.POST.get("periferico")
         motivo = request.POST.get("motivo")
         observacao = request.POST.get("obs")
+        site = request.POST.get("site")
+        pas = request.POST.get('PAS')
+        sla = request.POST.get("sla")
         
-        # Criando objeto com variaveis criadas
+
         try:     
             migracao = TblSolicitacao.objects.create(
             chamado = chamado, 
@@ -57,7 +66,11 @@ def dashboard_incidentes(request):
             andar = andar,
             periferico = periferico,
             motivo = motivo,
-            observacao = observacao)
+            observacao = observacao,
+            pas = pas,
+            site = site,
+            sla = sla
+            )
 
             # Aumentando a quantidade de incidentes
             try:
