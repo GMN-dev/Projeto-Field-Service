@@ -54,7 +54,10 @@ def dashboard_incidentes(request):
         observacao = request.POST.get("obs")
         site = request.POST.get("site")
         pas = request.POST.get('PAS')
-        sla = request.POST.get("sla")
+        if request.POST.get("sla") ==  "on":
+            sla = True
+        else:
+            sla = False
         
 
         try:     
