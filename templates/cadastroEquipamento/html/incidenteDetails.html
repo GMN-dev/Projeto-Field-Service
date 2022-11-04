@@ -218,14 +218,14 @@
                 <hr class="my-3">
                 <div class="col-lg-3">
                   <label for="chamado" class="form-label">Nº Chamado:</label>
-                  <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="" required>
+                  <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="{{incidente.chamado}}" required>
                   <div class="invalid-feedback">
                     Informe o Número do chamado.
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <label for="data" class="form-label">Data Incidente:</label>
-                  <input type="date" name="data" class="form-control" id="data" placeholder="" value="" min="0" required>
+                  <input type="date" name="data" class="form-control" id="data" placeholder="" value="{{incidente.data_incidentes|date:'SHORT_DATE_FORMAT'}}" min="0" required>
                   <div class="invalid-feedback">
                     Informe uma data valida.
                   </div>
@@ -258,7 +258,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="site" class="form-label">Site:</label>
-                  <select name="site" class="form-select" id="site" required>\
+                  <select name="site" class="form-select" id="site" required>
                     <option value=""></option>
                     <option value="Campina Grande">Campina Grande</option>
                     <option value="Santana">Santana</option>

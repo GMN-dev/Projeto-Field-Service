@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import HttpResponse
 
 
-# Create your views here.
+# Create your views herekmkm  joao  .
 def dashboard_incidentes(request):
     if request.method == "GET":
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
@@ -213,3 +213,8 @@ def excluirOperacao(request, operacao):
 
     return redirect('/home/operacoes/')
     
+def Base(request):
+    return render(request, "cadastroEquipamento/html/base.html")
+
+def filhoBase(request):
+    return render(request, "cadastroEquipamento/html/filhoBase.html")
