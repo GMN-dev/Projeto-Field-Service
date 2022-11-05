@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Wesley Silva, Anderson Melo, and Gabriel Nascimento">
-  <title>Dashboard · Field Service</title>
+  <title> {% block title %}{% endblock title %}</title>
   <link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'cadastroEquipamento/css/dashboard.css' %}" rel="stylesheet">
   <link rel = "shortcut icon" type = "imagem/x-icon" href = "{% static 'cadastroEquipamento/static/stf_logo1.png' %}"/>
@@ -108,9 +108,45 @@
     }
 
     .toggle-box{
-      wid
+
     }
 
+    .linkFormat{
+      text-decoration: none;
+    }
+
+    .linkFormatBtn{
+      text-decoration: none;
+      color: white;
+    }
+    .linkFormatBtn:hover{
+      color: white;
+    }
+
+    .tirar_decoration{
+      text-decoration: none;
+      color: white;
+    }
+    .tirar_decoration:hover{
+      color: white;
+    }
+
+    .header-operacoes{
+      display: flex;
+      flex-wrap: wrap;
+      align-items:flex-end;
+      justify-content:space-between;
+    }
+
+    .operacao_celula{
+      display: flex;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:space-evenly;
+    }
+
+    {% block style %}{% endblock style %}
+    
   </style>
 </head>
 <body>
@@ -148,6 +184,12 @@
               <a class="nav-link active" aria-current="page">
                 <span data-feather="user" class="align-text-bottom"></span>
                 Usuários
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page">
+                <span data-feather="cpu" class="align-text-bottom"></span>
+                Periféricos
               </a>
             </li>
           </ul>
