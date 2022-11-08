@@ -107,7 +107,9 @@ def incidente_details(request, chamado):
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
     perifericos = TblPeriferico.objects.all()
     operacoes = TblOperacao.objects.all()
-    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes}) 
+    motivos = {"Extravio - Retirada indevida":"Extravio - Retirada indevida","Adição Novo":"Adição Novo",
+    "Quebra - Por Desgaste":"Quebra - Por Desgaste","Quebra - Mal Uso":"Quebra - Mal Uso","Troca":"Troca"}
+    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":motivos}) 
 
 
 

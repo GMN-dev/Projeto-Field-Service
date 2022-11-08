@@ -29,6 +29,14 @@ class TblOperacao(models.Model):
 
 
 class TblSolicitacao(models.Model):
+    MOTIVO_CHOICES = (
+        ("extravio","Extravio - Retirada indevida"),
+        ("adicao","Adição Novo"),
+        ("quebra","Quebra - Por Desgaste"),
+        ("quebra_mal_uso","Quebra - Mal Uso"),
+        ("troca","Troca")
+    )
+
     chamado = models.CharField(max_length=7, unique=True)
     sla = models.BooleanField(default=False)
     data_incidentes = models.DateField(auto_now_add=True)
@@ -37,7 +45,7 @@ class TblSolicitacao(models.Model):
     operacao = models.ForeignKey("TblOperacao", on_delete=models.DO_NOTHING , related_name="incidentes_ativos")
     andar = models.CharField(max_length=10)
     periferico = models.ForeignKey("TblPeriferico", on_delete=models.DO_NOTHING, related_name="perifericos")
-    motivo = models.CharField(max_length=15)
+    motivo = models.CharField(max_length=50, choices=MOTIVO_CHOICES, blank=False, null=False)
     observacao = models.TextField(max_length=50)
     pas = models.TextField(max_length=30)
 

@@ -14,7 +14,7 @@
       <div class="container">
         <h1 class="mt-5">Chamado: {{incidente.chamado}}</h1>
         <p class="lead">
-            SLA no prazo: <strong>{{incidente.sla}}</strong> <br>
+            SLA no prazo: <strong>{% if incidente.sla == True %}Sim {% else %} Não{% endif %}</strong> <br>
             Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
             Informante: <strong>{{incidente.solicitante}}</strong> <br>
             Site: <strong>{{incidente.site}}</strong> <br>
@@ -35,8 +35,6 @@
           <button type='button' class='btn btn-danger btn-lg mx-3'> <a class="linkFormatBtn" href="{% url 'deletar' incidente.id %}">Excluir</a></button>
         </div>
     </main>
-
-
 
     <div class="modal modal-sheet py-5 fade" role="dialog" id="modalSheet">
       <div class="modal-dialog" role="document">
@@ -123,7 +121,7 @@
                   </div>
                 </div>
                 <div >SLA respeitado?
-                  <input class="toggle" id="toggle" name="sla" {% if incidente.sla %} value="on" {% else %} value="off" {% endif %} type="checkbox">
+                  <input class="toggle" id="toggle" name="sla" {% if incidente.sla == True %}checked{% endif %} type="checkbox">
                   <label for="toggle"></label>
                 </div>
                 
