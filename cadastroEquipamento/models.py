@@ -31,12 +31,12 @@ class TblOperacao(models.Model):
 class TblSolicitacao(models.Model):
     chamado = models.CharField(max_length=7, unique=True)
     sla = models.BooleanField(default=False)
-    data_incidentes = models.DateField()
+    data_incidentes = models.DateField(auto_now_add=True)
     solicitante = models.CharField(max_length=50)
     site = models.CharField(max_length=50)
-    operacao = models.ForeignKey("TblOperacao", on_delete=models.DO_NOTHING , related_name="Incidentes_ativos")
+    operacao = models.ForeignKey("TblOperacao", on_delete=models.DO_NOTHING , related_name="incidentes_ativos")
     andar = models.CharField(max_length=10)
-    periferico = models.CharField(max_length=10)
+    periferico = models.ForeignKey("TblPeriferico", on_delete=models.DO_NOTHING, related_name="perifericos")
     motivo = models.CharField(max_length=15)
     observacao = models.TextField(max_length=50)
     pas = models.TextField(max_length=30)
@@ -50,8 +50,6 @@ class TblSolicitacao(models.Model):
 
     def get_absolute_url(self):
         return reverse("incidente_details", kwargs={'chamado': self.chamado})
-
-
 
 
 

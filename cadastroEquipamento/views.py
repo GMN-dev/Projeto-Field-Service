@@ -59,15 +59,18 @@ def dashboard_incidentes(request):
         else:
             sla = False
         
+        # Pegando dados de tabelas que nao sao a solicitacoes
+        instanciaPeriferico = TblPeriferico.objects.get(tipo = periferico)
+        instanciaOperacao = TblOperacao.objects.get(operacao = operacao)
 
         try:     
             migracao = TblSolicitacao.objects.create(
             chamado = chamado, 
             data_incidentes = data_incidente, 
             solicitante = informante,
-            operacao = TblOperacao.objects.get(operacao = operacao),
+            operacao = instanciaOperacao,
             andar = andar,
-            periferico = periferico,
+            periferico = instanciaPeriferico,
             motivo = motivo,
             observacao = observacao,
             pas = pas,
@@ -77,11 +80,15 @@ def dashboard_incidentes(request):
 
             # Aumentando a quantidade de incidentes
             try:
-                incremento = TblOperacao.objects.get(operacao = operacao)
-                incremento.qtd_solicitacao += 1
-                incremento.save()
+                instanciaOperacao.qtd_solicitacao += 1
+                instanciaOperacao.save()
 
-                migracao.save()
+                try:
+                    instanciaPeriferico.qtd_periferico += 1
+                    instanciaPeriferico.save()
+                except:
+                    messages.add_message(request, messages.constants.SUCCESS, "Solicitação nao contabilizou periferico!")
+
                 messages.add_message(request, messages.constants.SUCCESS, "Solicitação cadastrada!")
             except:
                 messages.add_message(request, messages.constants.ERROR, "Algo deu errado, contate o administrador!")
@@ -91,14 +98,16 @@ def dashboard_incidentes(request):
             messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
                     
         # renderizar página
-        return redirect('/home/dashboard')
+        return redirect('/home/dashboard')                  
 
 
 
 def incidente_details(request, chamado):
     # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
-    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente}) 
+    perifericos = TblPeriferico.objects.all()
+    operacoes = TblOperacao.objects.all()
+    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes}) 
 
 
 
@@ -212,9 +221,3 @@ def excluirOperacao(request, operacao):
         messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
 
     return redirect('/home/operacoes/')
-    
-def Base(request):
-    return render(request, "cadastroEquipamento/html/base.html")
-
-def filhoBase(request):
-    return render(request, "cadastroEquipamento/html/filhoBase.html")

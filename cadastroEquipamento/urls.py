@@ -15,8 +15,6 @@ urlpatterns = [
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
     path('operacoes/<int:pk>', views.operacao_details, name="operacao_details"),
     path('operacoes/deletar/<str:operacao>', views.excluirOperacao, name="excluirOperacao"),
-    path('base/', views.Base, name = "base"),
-    path('filhoBase/', views.filhoBase, name = "filhos"),
     path('api/', include(route.urls)),
     # path('entrada/', views.entrada, name='entrada'),
 ] 
