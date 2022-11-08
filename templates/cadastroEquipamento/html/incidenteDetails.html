@@ -102,7 +102,7 @@
                   <label for="periferico" class="form-label">Periférico:</label>
                   <select name="periferico" class="form-select" id="periferico" value="{{incidente.periferico}}" required>
                     {% for periferico in perifericos %}
-                      <option value="{{periferico.tipo}} {% if periferico == incidente.periferico %}{% endif %}">{{periferico.tipo}}</option>
+                      <option value="{{periferico.tipo}}" {% if periferico.tipo == incidente.periferico.tipo %}selected{% endif %}>{{periferico.tipo}}</option>
                     {% endfor %}  
                   </select>
                   <div class="invalid-feedback">
