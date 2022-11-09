@@ -40,7 +40,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content rounded-4 shadows">
           <div class="modal-header border-bottom-0">
-            <h3 class="modal-title">Nova Solicitação</h3>
+            <h3 class="modal-title">Editar Solicitação</h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body py-0">
@@ -110,11 +110,9 @@
                 <div class="col-sm-7">
                   <label for="motivo" class="form-label">Motivo da Solicitação:</label>
                   <select name="motivo" class="form-select" id="motivo" value="{{incidente.motivo}}" required>
-                    <option value="Extravio - Retirada indevida">Extravio - Retirada indevida</option>
-                    <option value="Adição Novo">Adição Novo</option>
-                    <option value="Quebra - Por Desgaste">Quebra - Por Desgaste</option>
-                    <option value="Quebra - Mal Uso">Quebra - Mal Uso</option>
-                    <option value="Troca">Troca</option>
+                    {% for motivo in motivos %}
+                      <option value="{{motivo.1}}" {% if incidente.motivo == motivo.1 %}selected{% endif %}>{{motivo.1}}</option>
+                    {% endfor %}
                   </select>
                   <div class="invalid-feedback">
                     Informe o motivo da solicitação.

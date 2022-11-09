@@ -109,7 +109,7 @@ def incidente_details(request, chamado):
     operacoes = TblOperacao.objects.all()
     motivos = {"Extravio - Retirada indevida":"Extravio - Retirada indevida","Adição Novo":"Adição Novo",
     "Quebra - Por Desgaste":"Quebra - Por Desgaste","Quebra - Mal Uso":"Quebra - Mal Uso","Troca":"Troca"}
-    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":motivos}) 
+    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":TblSolicitacao.MOTIVO_CHOICES}) 
 
 
 
@@ -174,7 +174,7 @@ def operacao_details(request, pk):
             # pegando incidentes desta operacao
             incidentes_operacao = TblSolicitacao.objects.filter(operacao = TblOperacao.objects.get(operacao = operacaoBanco.operacao))
             
-            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'incidentes_operacao' : incidentes_operacao}) 
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'solicitacoes' : incidentes_operacao}) 
          
         # Caso Erro
         except:
