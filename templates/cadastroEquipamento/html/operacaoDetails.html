@@ -36,7 +36,7 @@
                 <th scope="col">Andar</th>
                 <th scope="col">Periférico</th>
                 <th scope="col">Motivo</th>
-              </tr>
+              </tr> 
             </thead>
             <tbody id="data">
               {% comment %} Criando tabela solicitações {% endcomment %}
@@ -62,7 +62,7 @@
             <ul class="pagination">
               {% if solicitacoes.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.previous_page_number}}" aria-label="Previous">
+                <a class="page-link" href="{{incidente.operacao.get_absolute_url}}?page={{solicitacoes.previous_page_number}}" aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
@@ -77,16 +77,16 @@
 
               {% for num in solicitacoes.paginator.page_range %}
                 {% if solicitacoes.number == num %}
-                  <li class="page-item active"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                  <li class="page-item active"><a class="page-link" href="{{incidente.operacao.get_absolute_url}}?page={{num}}">{{num}}</a></li>
                 {% else %}
-                  <li class="page-item"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                  <li class="page-item"><a class="page-link" href="{{incidente.operacao.get_absolute_url}}?page={{num}}">{{num}}</a></li>
                 {% endif %}
               {% endfor %}
               
               
               {% if solicitacoes.has_next %}
               <li class="page-item">
-                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.next_page_number}}" aria-label="Next">
+                <a class="page-link" href="{{incidente.operacao.get_absolute_url}}?page={{solicitacoes.next_page_number}}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>

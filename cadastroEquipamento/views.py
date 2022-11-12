@@ -107,8 +107,7 @@ def incidente_details(request, chamado):
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
     perifericos = TblPeriferico.objects.all()
     operacoes = TblOperacao.objects.all()
-    motivos = {"Extravio - Retirada indevida":"Extravio - Retirada indevida","Adição Novo":"Adição Novo",
-    "Quebra - Por Desgaste":"Quebra - Por Desgaste","Quebra - Mal Uso":"Quebra - Mal Uso","Troca":"Troca"}
+    
     return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":TblSolicitacao.MOTIVO_CHOICES}) 
 
 
@@ -173,8 +172,29 @@ def operacao_details(request, pk):
             operacaoBanco = get_object_or_404(TblOperacao, pk = pk)
             # pegando incidentes desta operacao
             incidentes_operacao = TblSolicitacao.objects.filter(operacao = TblOperacao.objects.get(operacao = operacaoBanco.operacao))
+
+            # =-=-=-=- Paginação =-=-=-=-=
+            # Parâmetro minimo
+            parametro_page = request.GET.get("page", '1')
             
-            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'solicitacoes' : incidentes_operacao}) 
+            #Parâmetro maximo
+            parametro_limite = request.GET.get('limit', '3')
+
+            # Evitar páginas inexistentes
+            if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
+                parametro_limite = 10
+
+            # Definindo Paginação
+            solicitacoes_paginator = Paginator(incidentes_operacao, parametro_limite)
+            
+            # Evitar paginas vazias ou que nao sejam numero inteiros
+            try:
+                page = solicitacoes_paginator.page(parametro_page)
+            except (EmptyPage, PageNotAnInteger): 
+                page = solicitacoes_paginator.page(1)
+
+            
+            return render(request, "cadastroEquipamento/html/operacaoDetails.html" , {"operacao" : operacaoBanco, 'solicitacoes' : page}) 
          
         # Caso Erro
         except:
