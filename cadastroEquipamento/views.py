@@ -105,9 +105,61 @@ def dashboard_incidentes(request):
 def incidente_details(request, chamado):
     # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
+    incidente_antigo = incidente
     perifericos = TblPeriferico.objects.all()
     operacoes = TblOperacao.objects.all()
+    operacaoAntiga = incidente.operacao.operacao
+    perifericoAntigo = incidente.periferico.tipo
+
     
+    if request.method == "POST":
+        try:
+            chamado = request.POST.get('chamado')
+            data_incidente = request.POST.get('data')
+            informante = request.POST.get('gestor')
+            operacao = request.POST.get("operacao")
+            andar = request.POST.get('andar')
+            periferico = request.POST.get("periferico")
+            motivo = request.POST.get("motivo")
+            observacao = request.POST.get("obs")
+            site = request.POST.get("site")
+            pas = request.POST.get('PAS')
+            if request.POST.get("sla") ==  "on":
+                sla = True
+            else:
+                sla = False
+
+            instanciaPeriferico = TblPeriferico.objects.get(tipo = periferico)
+            instanciaOperacao = TblOperacao.objects.get(operacao = operacao)
+
+            incidente.chamado = chamado
+            incidente.sla = sla
+            incidente.data_incidentes = data_incidente
+            incidente.solicitante = informante
+            incidente.site = site
+            incidente.operacao = instanciaOperacao
+            incidente.andar = andar
+            incidente.periferico = instanciaPeriferico
+            incidente.motivo = motivo
+            incidente.observacao = observacao
+            incidente.pas = pas
+            
+            
+            try:
+                if operacaoAntiga != operacao:
+                    incidente.operacao.qtd_solicitacao -= 1
+
+                
+                if perifericoAntigo != periferico:
+                    incidente.periferico.qtd_periferico -= 1
+            except:
+                messages.add_message(request, messages.constants.ERROR, "Algo deu errado ao atualzar!")
+            incidente.save()
+            messages.add_message(request, messages.constants.SUCCESS, "Incidente atualizado com sucesso!")
+        except:
+            messages.add_message(request, messages.constants.ERROR, "Algo deu errado, confira os dados!")
+        
+
     return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":TblSolicitacao.MOTIVO_CHOICES}) 
 
 
@@ -243,3 +295,6 @@ def excluirOperacao(request, operacao):
         messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
 
     return redirect('/home/operacoes/')
+
+def perifericos(request):
+    return render(request, 'cadastroEquipamento/html/perifericos.html')

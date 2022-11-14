@@ -44,7 +44,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body py-0">
-            <form method="post" action="{% url 'dashboard' %}" class="needs-validation" novalidate>{% csrf_token %}
+            <form method="post" action="" class="needs-validation" novalidate>{% csrf_token %}
               <div class="row g-3">
                 <hr class="my-3">
                 <div class="col-lg-3">
@@ -131,7 +131,7 @@
               </div>
               <hr class="my-4">
               <div class="modal-footer flex-column border-top-0">
-                <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Cadastrar</button>
+                <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2"><a href="{{incidente.get_absolute_url}}"></a> Cadastrar</button>
                 <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Cancelar</button>
               </div>
             </form>

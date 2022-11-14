@@ -157,7 +157,7 @@ MESSAGE_TAGS = {
     constants.WARNING : 'alert-warning'
 }
 
-
+FILE_UPLOAD_MAX_MEMORY_SIZE = 200000000
 
 REST_FRAMEWORK = {
     'DATE_FORMAT': "%d/%m/%Y",
