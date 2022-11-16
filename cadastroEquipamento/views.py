@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao, TblPeriferico
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import HttpResponse
+# from django.shortcuts import HttpResponse
 
 
 # Create your views herekmkm  joao  .
@@ -19,11 +19,11 @@ def dashboard_incidentes(request):
         parametro_page = request.GET.get("page", '1')
         
         #Parâmetro maximo
-        parametro_limite = request.GET.get('limit', '5')
+        parametro_limite = request.GET.get('limit', '12')
 
         # Evitar páginas inexistentes
         if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
-            parametro_limite = 5
+            parametro_limite = 12
 
         # Definindo Paginação
         solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
@@ -101,21 +101,19 @@ def dashboard_incidentes(request):
         return redirect('/home/dashboard')                  
 
 
-
 def incidente_details(request, chamado):
     # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
-    incidente_antigo = incidente
+    incidente_antigo = get_object_or_404(TblSolicitacao, chamado = chamado)
     perifericos = TblPeriferico.objects.all()
     operacoes = TblOperacao.objects.all()
-    operacaoAntiga = incidente.operacao.operacao
-    perifericoAntigo = incidente.periferico.tipo
 
+    if request.method == "GET":
+        return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":TblSolicitacao.MOTIVO_CHOICES})
     
     if request.method == "POST":
         try:
             chamado = request.POST.get('chamado')
-            data_incidente = request.POST.get('data')
             informante = request.POST.get('gestor')
             operacao = request.POST.get("operacao")
             andar = request.POST.get('andar')
@@ -129,39 +127,46 @@ def incidente_details(request, chamado):
             else:
                 sla = False
 
-            instanciaPeriferico = TblPeriferico.objects.get(tipo = periferico)
-            instanciaOperacao = TblOperacao.objects.get(operacao = operacao)
+            instanciaPerifericoInput = TblPeriferico.objects.get(tipo = periferico)
+            instanciaOperacaoInput = TblOperacao.objects.get(operacao = operacao)
+
+            
+            if instanciaOperacaoInput.operacao != incidente.operacao.operacao:
+                instanciaOperacaoVelha = TblOperacao.objects.get(operacao = incidente.operacao.operacao) 
+
+                instanciaOperacaoInput.qtd_solicitacao += 1
+                instanciaOperacaoVelha.qtd_solicitacao -= 1                                    
+
+                instanciaOperacaoInput.save()
+                instanciaOperacaoVelha.save()
+
+            if instanciaPerifericoInput.tipo != incidente.periferico.tipo:
+                instanciaPerifericoVelha = TblPeriferico.objects.get(tipo = incidente.periferico.tipo)
+
+                instanciaPerifericoInput.qtd_periferico += 1
+                instanciaPerifericoVelha.qtd_periferico -= 1
+
+                instanciaPerifericoInput.save()
+                instanciaPerifericoVelha.save()
 
             incidente.chamado = chamado
             incidente.sla = sla
-            incidente.data_incidentes = data_incidente
             incidente.solicitante = informante
             incidente.site = site
-            incidente.operacao = instanciaOperacao
+            incidente.operacao = instanciaOperacaoInput
             incidente.andar = andar
-            incidente.periferico = instanciaPeriferico
+            incidente.periferico = instanciaPerifericoInput
             incidente.motivo = motivo
             incidente.observacao = observacao
             incidente.pas = pas
             
-            
-            try:
-                if operacaoAntiga != operacao:
-                    incidente.operacao.qtd_solicitacao -= 1
-
-                
-                if perifericoAntigo != periferico:
-                    incidente.periferico.qtd_periferico -= 1
-            except:
-                messages.add_message(request, messages.constants.ERROR, "Algo deu errado ao atualzar!")
             incidente.save()
-            messages.add_message(request, messages.constants.SUCCESS, "Incidente atualizado com sucesso!")
+            messages.add_message(request, messages.constants.SUCCESS, "Incidente atualizado!")
+        
         except:
             messages.add_message(request, messages.constants.ERROR, "Algo deu errado, confira os dados!")
-        
-
-    return render(request, "cadastroEquipamento/html/incidenteDetails.html", {'incidente':incidente, "perifericos":perifericos, "operacoes":operacoes, "motivos":TblSolicitacao.MOTIVO_CHOICES}) 
-
+         
+        return redirect(incidente)
 
 
 def excluirSolicitacao(request, id_solicitacao):
@@ -211,10 +216,7 @@ def operacoesAtivas(request):
             # Caso erro
             messages.add_message(request, constants.ERROR, 'Essa operação ja existe!')
         
-    
     return redirect('/home/operacoes/')    
-
-
 
 
 def operacao_details(request, pk):
@@ -230,11 +232,11 @@ def operacao_details(request, pk):
             parametro_page = request.GET.get("page", '1')
             
             #Parâmetro maximo
-            parametro_limite = request.GET.get('limit', '3')
+            parametro_limite = request.GET.get('limit', '12')
 
             # Evitar páginas inexistentes
             if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
-                parametro_limite = 10
+                parametro_limite = 12
 
             # Definindo Paginação
             solicitacoes_paginator = Paginator(incidentes_operacao, parametro_limite)
@@ -275,8 +277,8 @@ def operacao_details(request, pk):
 
         except:
             messages.add_message(request, constants.ERROR, "Essa operação já existe!")
+        
         return redirect(instanciaBanco)
-      
         
 
 
