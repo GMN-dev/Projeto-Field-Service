@@ -5,7 +5,6 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 
@@ -42,9 +41,9 @@ class TblSolicitacao(models.Model):
     data_incidentes = models.DateField(auto_now_add=True)
     solicitante = models.CharField(max_length=50)
     site = models.CharField(max_length=50)
-    operacao = models.ForeignKey("TblOperacao", on_delete=models.DO_NOTHING , related_name="incidentes_ativos")
+    operacao = models.ForeignKey("TblOperacao", on_delete=models.PROTECT , related_name="incidentes_ativos")
     andar = models.CharField(max_length=10)
-    periferico = models.ForeignKey("TblPeriferico", on_delete=models.DO_NOTHING, related_name="perifericos")
+    periferico = models.ForeignKey("TblPeriferico", on_delete=models.PROTECT, related_name="perifericos")
     motivo = models.CharField(max_length=50, choices=MOTIVO_CHOICES, blank=False, null=False)
     observacao = models.TextField(max_length=50)
     pas = models.TextField(max_length=30)

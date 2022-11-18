@@ -19,11 +19,11 @@ def dashboard_incidentes(request):
         parametro_page = request.GET.get("page", '1')
         
         #Parâmetro maximo
-        parametro_limite = request.GET.get('limit', '12')
+        parametro_limite = request.GET.get('limit', '25')
 
         # Evitar páginas inexistentes
         if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
-            parametro_limite = 12
+            parametro_limite = 25
 
         # Definindo Paginação
         solicitacoes_paginator = Paginator(solicitacoes, parametro_limite)
@@ -104,7 +104,6 @@ def dashboard_incidentes(request):
 def incidente_details(request, chamado):
     # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
-    incidente_antigo = get_object_or_404(TblSolicitacao, chamado = chamado)
     perifericos = TblPeriferico.objects.all()
     operacoes = TblOperacao.objects.all()
 
@@ -232,11 +231,11 @@ def operacao_details(request, pk):
             parametro_page = request.GET.get("page", '1')
             
             #Parâmetro maximo
-            parametro_limite = request.GET.get('limit', '12')
+            parametro_limite = request.GET.get('limit', '25')
 
             # Evitar páginas inexistentes
             if not ((parametro_limite.isdigit()) and (int(parametro_limite) > 0)):
-                parametro_limite = 12
+                parametro_limite = 25
 
             # Definindo Paginação
             solicitacoes_paginator = Paginator(incidentes_operacao, parametro_limite)
@@ -286,11 +285,10 @@ def excluirOperacao(request, operacao):
     try:
         # Pegando operacao do banco
         operacaoBanco = TblOperacao.objects.get(operacao = operacao)
-        
+        operacaoBanco.delete()
+
         # mensagem de Sucesso
         messages.add_message(request, constants.SUCCESS, "Operação deletada!")
-        
-        operacaoBanco.delete()
          
     except:
         # caso error

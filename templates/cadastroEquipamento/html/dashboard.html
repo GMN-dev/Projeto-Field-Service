@@ -20,6 +20,14 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h2>Solicitações</h2>
+          <div class="col-lg-2">
+            <form method="get" "{}"></form>
+            <label for="chamado" class="form-label">Nº Chamado:</label>
+            <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="" required>
+            <div class="invalid-feedback">
+              Informe o Número do chamado.
+            </div>
+          </div>
           <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
               <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
@@ -99,7 +107,7 @@
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
-              {% else %}
+              {% else %} 
               <li class="page-item disabled">
                 <a class="page-link" href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
