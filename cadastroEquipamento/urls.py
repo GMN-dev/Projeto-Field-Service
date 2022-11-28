@@ -12,10 +12,8 @@ route.register(r'dashboard', DashboardView, basename="api-dashboard")
 urlpatterns = [
     path('dashboard/', views.dashboard_incidentes, name='dashboard'),
     path('incidente/<slug:chamado>', views.incidente_details, name='incidente_details'),
-    path("deletar/incidente/<int:id_solicitacao>", views.excluirSolicitacao, name="deletar"),
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
     path('operacoes/<int:pk>', views.operacao_details, name="operacao_details"),
-    path('operacoes/deletar/<str:operacao>', views.excluirOperacao, name="excluirOperacao"),
     path("perifericos/", views.perifericos, name="perifericos"),   
     path('api/', include(route.urls)),
     # path('entrada/', views.entrada, name='entrada'),
