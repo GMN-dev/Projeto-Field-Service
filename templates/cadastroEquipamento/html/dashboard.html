@@ -17,23 +17,31 @@
           </div>
         </div>
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h2>Solicitações</h2>
-          <div class="col-lg-2">
-            <form method="get" "{}"></form>
-            <label for="chamado" class="form-label">Nº Chamado:</label>
-            <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="" required>
-            <div class="invalid-feedback">
-              Informe o Número do chamado.
-            </div>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
+          
+          <div class="title-mod">
+            <h2 class="title-mod">Chamados:</h2>
           </div>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
-                data-bs-target="#modalSheet">Nova Solicitação</button>
+          
+          <div class=" d-flex  title-mod justify-content-between flex-wrap flex-md-nowrap align-items-center ">
+            
+            <div class="col-lg-7 title-mod">
+              <form method="get">
+                <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" placeholder="Pesquisar chamado..." required>
+                <div class="invalid-feedback">
+                  Informe o Número do chamado.
+                </div>
+              </form>
             </div>
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalSheet">Nova Solicitação</button>
+              </div>
+            </div>
+
           </div>
+
         </div>
         {% if messages %}
           <br />
