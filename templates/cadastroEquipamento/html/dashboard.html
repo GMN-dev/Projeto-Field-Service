@@ -26,7 +26,7 @@
           <div class=" d-flex  title-mod justify-content-between flex-wrap flex-md-nowrap align-items-center ">
             
             <div class="col-lg-7 title-mod">
-              <form method="get">
+              <form method="get" action=" {% url 'search_chamado' %} " >
                 <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" placeholder="Pesquisar chamado..." required>
                 <div class="invalid-feedback">
                   Informe o Número do chamado.

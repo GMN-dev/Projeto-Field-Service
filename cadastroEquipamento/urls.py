@@ -12,6 +12,7 @@ route.register(r'dashboard', DashboardView, basename="api-dashboard")
 urlpatterns = [
     path('dashboard/', views.dashboard_incidentes, name='dashboard'),
     path('incidente/<slug:chamado>', views.incidente_details, name='incidente_details'),
+    path("pesquisar/", views.search_chamado, name="search_chamado"),   
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
     path('operacoes/<int:pk>', views.operacao_details, name="operacao_details"),
     path("perifericos/", views.perifericos, name="perifericos"),   

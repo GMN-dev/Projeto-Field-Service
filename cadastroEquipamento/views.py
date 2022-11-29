@@ -39,10 +39,6 @@ def dashboard_incidentes(request):
 
     # Registrando variaveis    
     if request.method == "POST":
-        # if request.POST.get("sla") == "on":
-        #     sla = True
-        # else:
-        #     sla = False
 
         chamado = request.POST.get('chamado')
         data_incidente = request.POST.get('data')
@@ -168,29 +164,6 @@ def incidente_details(request, chamado):
         return redirect(incidente)
 
 
-def excluirSolicitacao(request, id_solicitacao):
-    try:
-        # pegando objeto do banco a ser excluido
-        incidente = get_object_or_404(TblSolicitacao, id = id_solicitacao)
-        # =-=-=-=-= excluir registro na quantidade de operações =-=-=-=-=-
-        excluir_qtd_solicitacao = TblOperacao.objects.get(operacao = incidente.operacao)
-        excluir_qtd_solicitacao.qtd_solicitacao -= 1
-        excluir_qtd_solicitacao.save()
-        # =-=-=-=-=-==-==--=-=-=-=-=-=-=-
-        
-        # apagando incidente das solicitacoes
-        incidente.delete()
-        
-        messages.add_message(request, constants.SUCCESS, "Incidente deletado")
-        return redirect("/home/dashboard")
-
-        # Caso erro:    
-    except:
-        messages.add_message(request, constants.ERROR ,"Erro ao excluir, contate o administrador")
-        return redirect("/home/dashboard")
-
-
-
 def operacoesAtivas(request):
     if request.method == 'GET':
         # Pegando todas as operações
@@ -280,21 +253,13 @@ def operacao_details(request, pk):
         return redirect(instanciaBanco)
         
 
-
-def excluirOperacao(request, operacao):
-    try:
-        # Pegando operacao do banco
-        operacaoBanco = TblOperacao.objects.get(operacao = operacao)
-        operacaoBanco.delete()
-
-        # mensagem de Sucesso
-        messages.add_message(request, constants.SUCCESS, "Operação deletada!")
-         
-    except:
-        # caso error
-        messages.add_message(request, constants.ERROR, "Erro no sistema, contate o administrador!")
-
-    return redirect('/home/operacoes/')
-
 def perifericos(request):
     return render(request, 'cadastroEquipamento/html/perifericos.html')
+
+
+def search_chamado(request):
+    if request.method == "GET":
+        pesquisa = request.GET.get('search')
+        
+        chamado = get_object_or_404('TblSolicitacao', chamado = pesquisa)
+
