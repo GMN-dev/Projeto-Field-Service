@@ -253,13 +253,22 @@ def operacao_details(request, pk):
         return redirect(instanciaBanco)
         
 
+
+
+
 def perifericos(request):
     return render(request, 'cadastroEquipamento/html/perifericos.html')
 
 
-def search_chamado(request):
-    if request.method == "GET":
-        pesquisa = request.GET.get('search')
-        
-        chamado = get_object_or_404('TblSolicitacao', chamado = pesquisa)
 
+
+def search_chamado(request):
+
+    if request.method == "GET":
+        try:
+            pesquisa = request.GET.get('search')
+
+            return incidente_details(request, chamado = pesquisa)
+        except:
+            messages.add_message(request, constants.ERROR, "Chamado não encontrado!")
+        return redirect('dashboard')   
