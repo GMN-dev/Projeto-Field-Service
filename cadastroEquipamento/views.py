@@ -125,7 +125,7 @@ def incidente_details(request, chamado):
             instanciaPerifericoInput = TblPeriferico.objects.get(tipo = periferico)
             instanciaOperacaoInput = TblOperacao.objects.get(operacao = operacao)
 
-            
+            # Futura Trigger no Banco
             if instanciaOperacaoInput.operacao != incidente.operacao.operacao:
                 instanciaOperacaoVelha = TblOperacao.objects.get(operacao = incidente.operacao.operacao) 
 
@@ -144,6 +144,8 @@ def incidente_details(request, chamado):
                 instanciaPerifericoInput.save()
                 instanciaPerifericoVelha.save()
 
+
+            # Criando instancia no Banco
             incidente.chamado = chamado
             incidente.sla = sla
             incidente.solicitante = informante
@@ -155,6 +157,7 @@ def incidente_details(request, chamado):
             incidente.observacao = observacao
             incidente.pas = pas
             
+            # Salvando Instancias
             incidente.save()
             messages.add_message(request, messages.constants.SUCCESS, "Incidente atualizado!")
         
@@ -254,16 +257,11 @@ def operacao_details(request, pk):
         
 
 
-
-
 def perifericos(request):
     return render(request, 'cadastroEquipamento/html/perifericos.html')
 
 
-
-
 def search_chamado(request):
-
     if request.method == "GET":
         try:
             pesquisa = request.GET.get('search')
@@ -271,4 +269,16 @@ def search_chamado(request):
             return incidente_details(request, chamado = pesquisa)
         except:
             messages.add_message(request, constants.ERROR, "Chamado não encontrado!")
-        return redirect('dashboard')   
+        return redirect('dashboard')
+
+
+def search_operacao(request):
+    if request.method == "GET":
+        try:
+            pesquisa = request.GET.get("search")
+            operacao = get_object_or_404(TblOperacao, operacao = pesquisa)
+            return operacao_details(request, pk = operacao.pk)
+        except:
+            messages.add_message(request, constants.ERROR, "Operação não encontrada!")
+        
+        return redirect('operacoesAtivas')
