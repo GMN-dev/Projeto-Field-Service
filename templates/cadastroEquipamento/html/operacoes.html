@@ -16,7 +16,17 @@
                 <div>
                   <h1>Operações</h1>
                   <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 py-3" method="get" action="{% url 'search_operacao' %}">
-                    <input type="search" name="search" class="form-control" placeholder="Pesquisar operação..." aria-label="Search" style="width:20vw">
+                  
+                    <div class="input-group">
+                      <input type="search" name="search" class="form-control shadow-none" placeholder="Pesquisar operação..." aria-label="Search" style="width:20vw">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit"><span data-feather="search" class="align-text-bottom"></span></button>
+                      </div>
+                    </div>
+                    <div class="invalid-feedback">
+                      Informe o Número do chamado.
+                    </div>
+                  
                   </form>
                 </div>
                 <div

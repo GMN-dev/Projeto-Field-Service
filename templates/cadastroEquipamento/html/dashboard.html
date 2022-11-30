@@ -10,27 +10,36 @@
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar" class="align-text-bottom"></span>
-              Mês
-            </button>
+            <form action="" method="get">
+              <button type="button" name="mes" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar" class="align-text-bottom"></span>
+                Mês
+              </button>
+            </form>
           </div>
         </div>
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
           
           <div class="title-mod">
-            <h2 class="title-mod">Chamados:</h2>
+            <h2 class="title-mod">Chamados</h2>
           </div>
           
           <div class=" d-flex  title-mod justify-content-between flex-wrap flex-md-nowrap align-items-center ">
             
             <div class="col-lg-7 title-mod">
               <form method="get" action=" {% url 'search_chamado' %} " >
-                <input type="number" name="search" class="form-control" id="chamado" max="9999999" min="1" placeholder="Pesquisar chamado..." required>
+                
+                <div class="input-group">
+                  <input type="text" name="search" class="form-control shadow-none" id="chamado" max="9999999" min="1" placeholder="Pesquisar chamado..." required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit"><span data-feather="search" class="align-text-bottom"></span></button>
+                  </div>
+                </div>
                 <div class="invalid-feedback">
                   Informe o Número do chamado.
                 </div>
+                
               </form>
             </div>
 
