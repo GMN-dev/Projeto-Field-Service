@@ -254,7 +254,9 @@ def operacao_details(request, pk):
             messages.add_message(request, constants.ERROR, "Essa operação já existe!")
         
         return redirect(instanciaBanco)
-        
+
+def usuarios(request):
+    return render(request, "cadastroEquipamento/html/usuarios.html")
 
 
 def perifericos(request):
