@@ -16,6 +16,7 @@ urlpatterns = [
     path("pesquisar/operacao", views.search_operacao, name="search_operacao"),
     path('operacoes/', views.operacoesAtivas, name="operacoesAtivas"),
     path('operacoes/<int:pk>', views.operacao_details, name="operacao_details"),
+    path('usuarios/', views.usuarios, name="usuarios"),
     path("perifericos/", views.perifericos, name="perifericos"),   
     path('api/', include(route.urls)),
     # path('entrada/', views.entrada, name='entrada'),
