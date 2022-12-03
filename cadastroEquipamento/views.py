@@ -281,23 +281,21 @@ def perifericos(request):
 
 
 def search_chamado(request):
-    if request.method == "GET":
-        try:
-            pesquisa = request.GET.get('search')
+    try:
+        pesquisa = request.GET.get('search')
 
-            return incidente_details(request, chamado = pesquisa)
-        except:
-            messages.add_message(request, constants.ERROR, "Chamado não encontrado!")
-        return redirect('dashboard')
+        return incidente_details(request, chamado = pesquisa)
+    except:
+        messages.add_message(request, constants.ERROR, "Chamado não encontrado!")
+    return redirect('dashboard')
 
 
 def search_operacao(request):
-    if request.method == "GET":
-        try:
-            pesquisa = request.GET.get("search")
-            operacao = get_object_or_404(TblOperacao, operacao = pesquisa)
-            return operacao_details(request, pk = operacao.pk)
-        except:
-            messages.add_message(request, constants.ERROR, "Operação não encontrada!")
-        
-        return redirect('operacoesAtivas')
+    try:
+        pesquisa = request.GET.get("search")
+        operacao = get_object_or_404(TblOperacao, operacao = pesquisa)
+        return operacao_details(request, pk = operacao.pk)
+    except:
+        messages.add_message(request, constants.ERROR, "Operação não encontrada!")
+    
+    return redirect('operacoesAtivas')
