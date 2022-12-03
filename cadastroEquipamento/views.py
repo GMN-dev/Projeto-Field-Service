@@ -258,7 +258,24 @@ def operacao_details(request, pk):
 
 
 def perifericos(request):
-    return render(request, 'cadastroEquipamento/html/perifericos.html')
+    if request.method == 'GET':
+        perifericos = TblPeriferico.objects.all()
+        return render(request, 'cadastroEquipamento/html/perifericos.html', {'perifericos':perifericos})
+    
+    if request.method == "POST":
+        try:
+            periferico = request.POST.get("nome_periferico")
+            obs = request.POST.get("obs")
+
+            instancia = TblPeriferico.objects.create(tipo = periferico, observacao = obs)
+            
+            instancia.save()
+            messages.add_message(request, constants.SUCCESS, "Periférico adicionado!")
+            
+        except:    
+            messages.add_message(request, constants.ERROR, "Esse periférico já existe!")
+        
+        return redirect('perifericos')
 
 
 def search_chamado(request):

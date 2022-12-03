@@ -9,18 +9,8 @@
       <div class="py-3 container-fluid header-operacoes">
         <div>
           <h1>Controle de Periféricos</h1>
-           <div class="formContainer" enctype="multipart/form-data" method="POST">
+           <div class="formContainer" enctype="multipart/form-data">
            </div>    
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 py-3" role="search">
-          
-            <div class="input-group">
-              <input type="search" class="form-control shadow-none" placeholder="Pesquisar periferico..." aria-label="Search" style="width:20vw">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit"><span data-feather="search" class="align-text-bottom"></span></button>
-              </div>
-            </div>
-
-          </form>
         </div>
 <!-- BOTÃO PARA CADASTRO DE PERIFERICO-->         
         <div
@@ -46,11 +36,19 @@
           <thead>
             <tr>
               <th scope="col">Periférico</th>
-              <th scope="col">Modelo</th>
-              <th scope="col">Fabricante</th>
-              <th scope="col">Quantidade</th>
+              <th scope="col">Quantidade de incidentes</th>
             </tr>
           </thead>
+          <tbody id="data">
+            {% comment %} Criando tabela solicitações {% endcomment %}
+            {% for row in perifericos %}
+              <tr>
+                <td>{{row.tipo}}</td>
+                <td>{{row.qtd_periferico}}</td>
+              </tr> 
+            {% endfor %}
+            {% comment %} Fim da tabela {% endcomment %}
+          </tbody>
         </table>
       </div>
     </div>
@@ -64,24 +62,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-0">
-          <form method="post" action="{% url 'operacoesAtivas' %}" class="needs-validation" novalidate>{% csrf_token %}
+          <form method="post" action="{% url 'perifericos' %}" class="needs-validation" novalidate>{% csrf_token %}
             <div class="g-1">
               <hr class="my-3">
               <div class="operacao_celula">  
-                <div class="col-lg-5">
+                <div class="col-lg-11">
                   <label for="operacao" class="form-label">Periférico:</label>
-                  <input type="text" name="operacao" class="form-control" id="operacao" value="" required>
+                  <input type="text" name="nome_periferico" class="form-control" id="operacao" value="" required>
                   <div class="invalid-feedback">
                     Informe o Periférico.
                   </div>
                 </div>
-                <div class="col-sm-5">
-                  <label for="celula" class="form-label">Fabricante:</label>
-                  <input type="number" name="celula" class="form-control" id="celula" placeholder="" value="" min="0" max="1000" required>
-                  <div class="invalid-feedback">
-                    Informe Fabricante.
-                  </div>
-                </div>
+                
               </div>
               <div class="col-lg-11 my-4"  style="margin: 0 auto;">
                 <label for="obs" class="form-label">Observações:</label>

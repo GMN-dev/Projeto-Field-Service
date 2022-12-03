@@ -45,12 +45,13 @@ class TblSolicitacao(models.Model):
     andar = models.CharField(max_length=10)
     periferico = models.ForeignKey("TblPeriferico", on_delete=models.PROTECT, related_name="perifericos")
     motivo = models.CharField(max_length=50, choices=MOTIVO_CHOICES, blank=False, null=False)
-    observacao = models.TextField(max_length=50)
+    observacao = models.TextField(max_length=70)
     pas = models.TextField(max_length=30)
 
     class Meta:
         managed = True
         db_table = 'tbl_solicitacao'
+        ordering = ['-data_incidentes']
 
     def __str__(self) :
         return self.chamado
@@ -61,7 +62,8 @@ class TblSolicitacao(models.Model):
 
 
 class TblPeriferico(models.Model):
-    tipo = models.CharField(max_length=50)
+    tipo = models.CharField(max_length=50, unique=True)
+    observacao = models.TextField(max_length=70, blank=True, null=True)
     qtd_periferico = models.IntegerField(blank=True, default=0)
 
     class Meta:
