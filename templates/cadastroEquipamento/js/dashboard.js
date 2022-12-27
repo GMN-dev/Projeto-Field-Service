@@ -1,7 +1,7 @@
 (() => {
   'use strict'
 
-  let urlDashboard = '/home/api/dashboard'
+  let urlDashboard = '/home/api/month'
   
   feather.replace({ 'aria-hidden': 'true' })
   
@@ -20,7 +20,7 @@
   
     dataApi.forEach(data => {
       y.push(data.operacao)
-      x.push(data.qtd_solicitacao)
+      x.push(data.qtd_chamados)
     });
 
   // Graphs

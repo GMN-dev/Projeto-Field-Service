@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .api.views import DashboardView, TblSolicitacaoView
+from .api.views import DashboardView, TblSolicitacaoView, DashboardViewMonth 
 from rest_framework import routers
 
 
@@ -8,6 +8,7 @@ from rest_framework import routers
 route = routers.DefaultRouter()
 route.register(r'incidentes', TblSolicitacaoView, basename="api-retirada")
 route.register(r'dashboard', DashboardView, basename="api-dashboard")
+route.register(r'month', DashboardViewMonth, basename="api-mes")
 
 urlpatterns = [
     path('dashboard/', views.dashboard_incidentes, name='dashboard'),

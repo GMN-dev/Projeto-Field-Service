@@ -8,8 +8,8 @@ class TblSolicitacaoSerializer(serializers.ModelSerializer):
         fields = ('id', 'chamado', 'data_incidentes', 'operacao', 'andar', 'solicitante', 'periferico', 'motivo', "observacao")
         
 
-class DashboardSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TblOperacao
-        fields = ('__all__')
+class MonthDashboardSerializer(serializers.Serializer):
+    operacao = serializers.CharField(max_length = 15)
+    qtd_chamados = serializers.IntegerField()
+
 
