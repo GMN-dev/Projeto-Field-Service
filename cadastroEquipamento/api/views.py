@@ -1,13 +1,8 @@
 from rest_framework import viewsets
-from cadastroEquipamento.models import TblSolicitacao, TblOperacao
-from .serializers import TblSolicitacaoSerializer, MonthDashboardSerializer
+from cadastroEquipamento.models import TblOperacao
+from .serializers import MonthDashboardSerializer
 from rest_framework.response import Response
 from datetime import date
-
-
-class TblSolicitacaoView(viewsets.ModelViewSet):
-    queryset = TblSolicitacao.objects.all()
-    serializer_class = TblSolicitacaoSerializer
 
 
 class DashboardViewMonth(viewsets.ViewSet):

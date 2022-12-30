@@ -8,21 +8,21 @@
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
+          <h1 class="h2">Dashboard - <span id="mes_atual">{{mes_atual}}</span></h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <form action="" method="get">
+            {% comment %} <form action="" method="get">
               <button type="button" name="mes" class="btn btn-sm btn-outline-secondary dropdown-toggle">
                 <span data-feather="calendar" class="align-text-bottom"></span>
                 Mês
               </button>
-            </form>
+            </form> {% endcomment %}
           </div>
         </div>
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
           
           <div class="title-mod">
-            <h2 class="title-mod">Chamados</h2>
+            <h2 class="title-mod">Chamados recentes</h2>
           </div>
           
           <div class=" d-flex  title-mod justify-content-between flex-wrap flex-md-nowrap align-items-center ">
@@ -108,16 +108,16 @@
 
               {% for num in solicitacoes.paginator.page_range %}
                 {% if solicitacoes.number == num %}
-                  <li class="page-item active"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                  <li class="page-item active"><a class="page-link" href="{% url 'home' %}?page={{num}}">{{num}}</a></li>
                 {% else %}
-                  <li class="page-item"><a class="page-link" href="{% url 'dashboard' %}?page={{num}}">{{num}}</a></li>
+                  <li class="page-item"><a class="page-link" href="{% url 'home' %}?page={{num}}">{{num}}</a></li>
                 {% endif %}
               {% endfor %}
               
               
               {% if solicitacoes.has_next %}
               <li class="page-item">
-                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.next_page_number}}" aria-label="Next">
+                <a class="page-link" href="{% url 'home' %}?page={{solicitacoes.next_page_number}}" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
@@ -143,7 +143,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
-              <form method="post" action="{% url 'dashboard' %}" class="needs-validation" novalidate>{% csrf_token %}
+              <form method="post" action="{% url 'home' %}" class="needs-validation" novalidate>{% csrf_token %}
                 <div class="row g-3">
                   <hr class="my-3">
                   <div class="col-lg-4">

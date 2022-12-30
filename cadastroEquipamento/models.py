@@ -23,8 +23,7 @@ class TblOperacao(models.Model):
         return self.operacao
 
     def get_absolute_url(self):
-            return reverse("operacao_details", kwargs={'pk':self.pk})
-
+            return reverse("operacao_details", kwargs={'pk':self.pk})  
 
 
 class TblSolicitacao(models.Model):

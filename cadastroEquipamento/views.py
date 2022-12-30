@@ -6,13 +6,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
+from .utils import verify_month
 
 
 # Create your views
 def auth_access(request):
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('/home/dashboard')
+            return redirect('/home')
         else:
             return render(request, 'autenticacao/html/login.html')
     
@@ -26,7 +27,7 @@ def auth_access(request):
             messages.add_message(request, constants.ERROR, "Usuário não encontrado deu ruim")
         if user:
             login(request, user)
-            return redirect('/home/dashboard')  
+            return redirect('/home')  
         else:
             messages.add_message(request, constants.ERROR, "Usuário não encontrado. Verifique seu email e senha")
             return redirect("/")
@@ -41,7 +42,7 @@ def logout_view(request):
 def dashboard_incidentes(request):
     if request.method == "GET":
         #Pegando mês atual:
-        mes_atual = date.today().month
+        mes_atual = verify_month(date.today().month)
 
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
         operacoesAtivas = TblOperacao.objects.values()
@@ -69,7 +70,7 @@ def dashboard_incidentes(request):
             page = solicitacoes_paginator.page(1)
         
         # Renderizar página
-        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'perifericos':perifericos})
+        return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'perifericos':perifericos, 'mes_atual':mes_atual})
 
     # Registrando variaveis    
     if request.method == "POST":
@@ -128,7 +129,7 @@ def dashboard_incidentes(request):
             messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
                     
         # renderizar página
-        return redirect('/home/dashboard')  
+        return redirect('/home')  
 
 
 @login_required(login_url="/")
@@ -293,7 +294,7 @@ def operacao_details(request, pk):
 
 
 @login_required(login_url="/")
-def usuarios(request):
+def dashboards(request):
     return render(request, "cadastroEquipamento/html/usuarios.html")
 
 
@@ -327,7 +328,7 @@ def search_chamado(request):
         return incidente_details(request, chamado = pesquisa)
     except:
         messages.add_message(request, constants.ERROR, "Chamado não encontrado!")
-    return redirect('dashboard')
+    return redirect('home')
 
 
 @login_required(login_url="/")
