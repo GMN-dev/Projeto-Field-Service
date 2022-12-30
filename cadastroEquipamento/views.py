@@ -3,12 +3,46 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import TblOperacao, TblSolicitacao, TblPeriferico
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# from django.shortcuts import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from datetime import date
 
 
-# Create your views herekmkm  joao  .
+# Create your views
+def auth_access(request):
+    if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect('/home/dashboard')
+        else:
+            return render(request, 'autenticacao/html/login.html')
+    
+    if request.method == "POST":
+        username = request.POST.get("nome")
+        password = request.POST.get("senha")
+
+        try:
+            user = authenticate(username = username, password = password)
+        except:
+            messages.add_message(request, constants.ERROR, "Usuário não encontrado deu ruim")
+        if user:
+            login(request, user)
+            return redirect('/home/dashboard')  
+        else:
+            messages.add_message(request, constants.ERROR, "Usuário não encontrado. Verifique seu email e senha")
+            return redirect("/")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("/")
+
+
+@login_required(login_url="/")
 def dashboard_incidentes(request):
     if request.method == "GET":
+        #Pegando mês atual:
+        mes_atual = date.today().month
+
         # Dados para alimentar o input de nova Soliticação (operações) \ Dados para alimentar a tabela
         operacoesAtivas = TblOperacao.objects.values()
         solicitacoes = TblSolicitacao.objects.all()
@@ -33,7 +67,7 @@ def dashboard_incidentes(request):
             page = solicitacoes_paginator.page(parametro_page)
         except (EmptyPage, PageNotAnInteger): 
             page = solicitacoes_paginator.page(1)
-
+        
         # Renderizar página
         return render(request, 'cadastroEquipamento/html/dashboard.html', {'operacoes': operacoesAtivas, 'solicitacoes':page, 'perifericos':perifericos})
 
@@ -94,9 +128,10 @@ def dashboard_incidentes(request):
             messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
                     
         # renderizar página
-        return redirect('/home/dashboard')                  
+        return redirect('/home/dashboard')  
 
 
+@login_required(login_url="/")
 def incidente_details(request, chamado):
     # Pegando incidente especificado
     incidente = get_object_or_404(TblSolicitacao, chamado = chamado)
@@ -166,7 +201,7 @@ def incidente_details(request, chamado):
          
         return redirect(incidente)
 
-
+@login_required(login_url="/")
 def operacoesAtivas(request):
     if request.method == 'GET':
         # Pegando todas as operações
@@ -194,6 +229,7 @@ def operacoesAtivas(request):
     return redirect('/home/operacoes/')    
 
 
+@login_required(login_url="/")
 def operacao_details(request, pk):
     if request.method == 'GET':
         try:
@@ -255,10 +291,13 @@ def operacao_details(request, pk):
         
         return redirect(instanciaBanco)
 
+
+@login_required(login_url="/")
 def usuarios(request):
     return render(request, "cadastroEquipamento/html/usuarios.html")
 
 
+@login_required(login_url="/")
 def perifericos(request):
     if request.method == 'GET':
         perifericos = TblPeriferico.objects.all()
@@ -280,6 +319,7 @@ def perifericos(request):
         return redirect('perifericos')
 
 
+@login_required(login_url="/")
 def search_chamado(request):
     try:
         pesquisa = request.GET.get('search')
@@ -290,6 +330,7 @@ def search_chamado(request):
     return redirect('dashboard')
 
 
+@login_required(login_url="/")
 def search_operacao(request):
     try:
         pesquisa = request.GET.get("search")

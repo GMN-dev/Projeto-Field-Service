@@ -1,7 +1,7 @@
 (() => {
   'use strict'
 
-  let urlDashboard = '/home/api/month'
+  let urlDashboard = '/home/api/dashboard/current-month'
   
   feather.replace({ 'aria-hidden': 'true' })
   

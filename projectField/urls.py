@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from cadastroEquipamento.views import auth_access
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
-    path('home/', include('cadastroEquipamento.urls')),
+    path('home/', include('cadastroEquipamento.urls'), name="home"),
+    path('', auth_access, name="auth_login")
 ]
 
 #informar a url definida no settings, e depois a pasta aonde está os arquivos

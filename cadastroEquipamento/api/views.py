@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from cadastroEquipamento.models import TblSolicitacao, TblOperacao
-from .serializers import TblSolicitacaoSerializer, DashboardSerializer, MonthDashboardSerializer
+from .serializers import TblSolicitacaoSerializer, MonthDashboardSerializer
 from rest_framework.response import Response
 from datetime import date
 

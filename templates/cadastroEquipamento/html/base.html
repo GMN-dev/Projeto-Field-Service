@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Wesley Silva, Anderson Melo, and Gabriel Nascimento">
   <title> {% block title %}{% endblock title %}</title>
-  <link href="{% static 'cadastroEquipamento/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'cadastroEquipamento/css/dashboard.css' %}" rel="stylesheet">
   <link rel = "shortcut icon" type = "imagem/x-icon" href = "{% static 'cadastroEquipamento/static/stf_logo1.png' %}"/>
 
@@ -155,7 +155,7 @@
     </button>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a class="nav-link px-3" href="#">Sign out</a>
+        <a class="nav-link px-3" href="{% url 'logout_view' %}">Sign out</a>
       </div>
     </div>
   </header>
@@ -198,9 +198,9 @@
     </div>
   </div>
 
-  <script src="{% static 'cadastroEquipamento/assets/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'cadastroEquipamento/assets/dist/js/feather.min.js' %}"></script>
-  <script src="{% static 'cadastroEquipamento/assets/dist/js/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/dist/js/feather.min.js' %}"></script>
+  <script src="{% static 'assets/dist/js/Chart.min.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/js/form-validation.js' %}"></script>
   <script src="{% static 'cadastroEquipamento/js/dashboard.js' %}"></script>
 </body>
