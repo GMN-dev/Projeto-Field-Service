@@ -1,0 +1,247 @@
+{% extends "cadastroEquipamento/html/base.html" %}
+
+{% block title %}Dashboard - Periféricos Orbital{% endblock title %}
+
+{% block main %}
+
+
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard - <span id="mes_atual">{{mes_atual}}</span></h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            {% comment %} <form action="" method="get">
+              <button type="button" name="mes" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar" class="align-text-bottom"></span>
+                Mês
+              </button>
+            </form> {% endcomment %}
+          </div>
+        </div>
+        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2  border-bottom">
+          
+          <div class="title-mod">
+            <h2 class="title-mod">Chamados recentes</h2>
+          </div>
+          
+          <div class=" d-flex  title-mod justify-content-between flex-wrap flex-md-nowrap align-items-center ">
+            
+            <div class="col-lg-7 title-mod">
+              <form method="get" action=" {% url 'search_chamado' %} " >
+                
+                <div class="input-group">
+                  <input type="text" name="search" class="form-control shadow-none" id="chamado" max="9999999" min="1" placeholder="Pesquisar chamado..." required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit"><span data-feather="search" class="align-text-bottom"></span></button>
+                  </div>
+                </div>
+                
+              </form>
+            </div>
+
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalSheet">Nova Solicitação</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        {% if messages %}
+          <br />
+            {% for message in messages %}
+              <div class="alert {{message.tags}}">{{message}}</div>
+            {% endfor %} 
+        {% endif %}
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+              <tr>
+                <th scope="col">Chamado</th>
+                <th scope="col">Data Incidente</th>
+                <th scope="col">Informante</th>
+                <th scope="col">Site</th>
+                <th scope="col">Operação</th>
+                <th scope="col">Andar</th>
+                <th scope="col">Periférico</th>
+                <th scope="col">Motivo</th>
+              </tr>
+            </thead>
+            <tbody id="data">
+              {% comment %} Criando tabela solicitações {% endcomment %}
+              {% for row in solicitacoes %}
+                <tr>
+                  <td><a href="{{ row.get_absolute_url }}"> {{row.chamado}} </a></td>
+                  <td>{{row.data_incidentes}}</td>
+                  <td>{{row.solicitante}}</td>
+                  <td>{{row.site}}</td>
+                  <td>{{row.operacao}}</td>
+                  <td>{{row.andar}}</td>
+                  <td>{{row.periferico}}</td>
+                  <td>{{row.motivo}}</td>
+                </tr> 
+              {% endfor %}
+              {% comment %} Fim da tabela {% endcomment %}
+            </tbody>
+          </table>
+
+
+          <nav aria-label="Page navigation example">
+            {% comment %} Começo da paginação {% endcomment %}
+            <ul class="pagination">
+              {% if solicitacoes.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="{% url 'dashboard' %}?page={{solicitacoes.previous_page_number}}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled ">
+                <a class="page-link" href="#" aria-label="Previous" >
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {% endif %}
+              
+
+              {% for num in solicitacoes.paginator.page_range %}
+                {% if solicitacoes.number == num %}
+                  <li class="page-item active"><a class="page-link" href="{% url 'home' %}?page={{num}}">{{num}}</a></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="{% url 'home' %}?page={{num}}">{{num}}</a></li>
+                {% endif %}
+              {% endfor %}
+              
+              
+              {% if solicitacoes.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="{% url 'home' %}?page={{solicitacoes.next_page_number}}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              {% else %} 
+              <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+            {% comment %} Fim da paginação {% endcomment %}
+          </nav>
+        </div>
+      </main>
+      
+      {% comment %} Modal {% endcomment %}
+      <div class="modal modal-sheet py-5 fade" role="dialog" id="modalSheet">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadows">
+            <div class="modal-header border-bottom-0">
+              <h3 class="modal-title">Nova Solicitação</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+              <form method="post" action="{% url 'home' %}" class="needs-validation" novalidate>{% csrf_token %}
+                <div class="row g-3">
+                  <hr class="my-3">
+                  <div class="col-lg-4">
+                    <label for="chamado" class="form-label">Nº Chamado:</label>
+                    <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="" required>
+                    <div class="invalid-feedback">
+                      Informe o Número do chamado.
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="gestor" class="form-label">Informante:</label>
+                    <input type="text" name="gestor" class="form-control" id="gestor" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                      Informe o nome do informante.
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <label for="operacao" class="form-label">Operação:</label>
+                    <select name="operacao" class="form-select" id="operacao" required>
+                      <option value=""></option>
+                      {% for op in operacoes  %}
+                        <option value="{{op.operacao}}">{{op.operacao}}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                      Informe a operação.
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="andar" class="form-label">Andar:</label>
+                    <input type="text" name="andar" class="form-control" id="andar" value="" min="1" max="6" required>
+                    <div class="invalid-feedback">
+                      Informe o número do andar.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="site" class="form-label">Site:</label>
+                    <select name="site" class="form-select" id="site" required>\
+                      <option value=""></option>
+                      <option value="Campina Grande">Campina Grande</option>
+                      <option value="Santana">Santana</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Informe o site da solicitação.
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="PAS" class="form-label">PA's envolvidas:</label>
+                    <input type="text" name="PAS" class="form-control" id="PAS" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                      Informe a PA.
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <label for="periferico" class="form-label">Periférico:</label>
+                    <select name="periferico" class="form-select" id="periferico" required>
+                      <option value=""></option>
+                      {% for periferico in perifericos %}
+                        <option value="{{periferico.tipo}}">{{periferico.tipo}}</option>
+                      {% endfor %}  
+                    </select>
+                    <div class="invalid-feedback">
+                      Informe o periférico.
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    <label for="motivo" class="form-label">Motivo da Solicitação:</label>
+                    <select name="motivo" class="form-select" id="motivo" required>
+                      <option value=""></option>
+                      <option value="Extravio - Retirada indevida">Extravio - Retirada indevida</option>
+                      <option value="Adição Novo">Adição Novo</option>
+                      <option value="Quebra - Por Desgaste">Quebra - Por Desgaste</option>
+                      <option value="Quebra - Mal Uso">Quebra - Mal Uso</option>
+                      <option value="Troca">Troca</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Informe o motivo da solicitação.
+                    </div>
+                  </div>
+                  <div >SLA respeitado?
+                    <input class="toggle" id="toggle" name="sla" type="checkbox">
+                    <label for="toggle"></label>
+                  </div>
+                  <div class="col-lg-15 toggle-box">
+                    <label for="obs" class="form-label">Observações:</label>
+                    <textarea name="obs" class="form-control" id="obs" rows="5" value=""></textarea>
+                  </div> 
+                </div>
+                <hr class="my-4">
+                <div class="modal-footer flex-column border-top-0">
+                  <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Cadastrar</button>
+                  <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+{% endblock main %}

@@ -1,0 +1,149 @@
+{% extends 'cadastroEquipamento/html/base.html' %}
+
+{% block title %}Incidente: {{incidente.chamado}}{% endblock title %}
+
+{% block style %}
+  
+
+{% endblock style %}
+
+{% block main %}
+
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="container">
+        <h1 class="mt-5">Chamado: {{incidente.chamado}}</h1>
+        <p class="lead">
+            SLA no prazo: <strong>{% if incidente.sla == True %}Sim {% else %} Não{% endif %}</strong> <br>
+            Data do incidente: <strong>{{incidente.data_incidentes}}</strong> <br>
+            Informante: <strong>{{incidente.solicitante}}</strong> <br>
+            Site: <strong>{{incidente.site}}</strong> <br>
+            Operação: <strong><a class="linkFormat" href="{{incidente.operacao.get_absolute_url}}"> {{incidente.operacao}} </a></strong> <br>
+            Célula: <strong>{{incidente.operacao.celula}}</strong> <br>  
+            Andar: <strong>{{incidente.andar}}</strong> <br>
+            PAS envolvidas: <strong>{{incidente.pas}}</strong> <br>
+            Periférico: <strong>{{incidente.periferico}}</strong> <br>
+            Motivo: <strong>{{incidente.motivo}}</strong>
+        </p>
+        <hr> 
+        {% if messages %}
+        <br />
+          {% for message in messages %}
+            <div class="alert {{message.tags}}">{{message}}</div>
+          {% endfor %} 
+        {% endif %}
+        
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <p>{{incidente.observacao}}</p>
+        </div>
+        <div id="container_btns">
+          <button type='button' class='btn btn-secondary btn-lg my-3' data-bs-toggle="modal" data-bs-target="#modalSheet"> <a class="linkFormatBtn" href="#">Editar</a></button>
+        </div>
+    </main>
+
+    <div class="modal modal-sheet py-5 fade" role="dialog" id="modalSheet">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadows">
+          <div class="modal-header border-bottom-0">
+            <h3 class="modal-title">Editar Solicitação</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-0">
+            <form method="post" class="needs-validation" novalidate>{% csrf_token %}
+              <div class="row g-3">
+                <hr class="my-3">
+                <div class="col-lg-3">
+                  <label for="chamado" class="form-label">Nº Chamado:</label>
+                  <input type="number" name="chamado" class="form-control" id="chamado" max="9999999" min="1" value="{{incidente.chamado}}" required>
+                  <div class="invalid-feedback">
+                    Informe o Número do chamado.
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <label for="gestor" class="form-label">Informante:</label>
+                  <input type="text" name="gestor" class="form-control" id="gestor" placeholder="" value="{{incidente.solicitante}}" required>
+                  <div class="invalid-feedback">
+                    Informe o nome do informante.
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="operacao" class="form-label">Operação: </label>
+                  <select name="operacao" class="form-select" id="operacao" required>
+                    {% for op in operacoes %}
+                      <option value="{{op.operacao}}" {% if op.operacao == incidente.operacao.operacao %}selected{% endif %}>{{op.operacao}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Informe a operação.
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <label for="andar" class="form-label">Andar:</label>
+                  <input type="text" name="andar" class="form-control" id="andar" value="{{incidente.andar}}" min="1" max="6" required>
+                  <div class="invalid-feedback">
+                    Informe o número do andar.
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="site" class="form-label">Site:</label>
+                  <select name="site" class="form-select" id="site" value="{{incidente.site}}" required>
+                    <option value="Campina Grande">Campina Grande</option>
+                    <option value="Santana">Santana</option>
+                  </select> 
+                  <div class="invalid-feedback">
+                    Informe o site da solicitação.
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="PAS" class="form-label">PA's envolvidas:</label>
+                  <input type="text" name="PAS" class="form-control" id="PAS" placeholder="" value="{{incidente.pas}}" required>
+                  <div class="invalid-feedback">
+                    Informe a PA.
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <label for="periferico" class="form-label">Periférico:</label>
+                  <select name="periferico" class="form-select" id="periferico" value="{{incidente.periferico}}" required>
+                    {% for periferico in perifericos %}
+                      <option value="{{periferico.tipo}}" {% if periferico.tipo == incidente.periferico.tipo %}selected{% endif %}>{{periferico.tipo}}</option>
+                    {% endfor %}  
+                  </select>
+                  <div class="invalid-feedback">
+                    Informe o periférico.
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <label for="motivo" class="form-label">Motivo da Solicitação:</label>
+                  <select name="motivo" class="form-select" id="motivo" value="{{incidente.motivo}}" required>
+                    {% for motivo in motivos %}
+                      <option value="{{motivo.1}}" {% if incidente.motivo == motivo.1 %}selected{% endif %}>{{motivo.1}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Informe o motivo da solicitação.
+                  </div>
+                </div>
+                <div >SLA respeitado?
+                  <input class="toggle" id="toggle" name="sla" {% if incidente.sla == True %}checked{% endif %} type="checkbox">
+                  <label for="toggle"></label>
+                </div>
+                
+                <div class="col-lg-15 toggle-box">
+                  <label for="obs" class="form-label">Observações:</label>
+                  <textarea name="obs" class="form-control" id="obs" rows="5" value="{{incidente.observacao}}">{{incidente.observacao}}</textarea>
+                </div> 
+                
+              </div>
+              <hr class="my-4">
+              <div class="modal-footer flex-column border-top-0">
+                <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2"><a href="{{incidente.get_absolute_url}}"></a>Atualizar</button>
+                <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+{% endblock main %}
