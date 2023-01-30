@@ -2,7 +2,8 @@
   'use strict'
 
   let urlDashboard = '/home/api/dashboard/current-month/'
-
+  
+  console.log('hello world')
   
   //Fetch Data from API
   async function getData(uri) {
