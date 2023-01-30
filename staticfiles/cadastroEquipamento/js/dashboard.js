@@ -22,8 +22,10 @@
       y.push(data.operacao)
       x.push(data.qtd_chamados)
     });
-
-  // Graphs
+    
+  console.log(dataAPI)
+  console.log(x, y)
+    // Graphs
   const ctx = document.getElementById('myChart')
     const myChart = new Chart(ctx, {
       type: 'bar',
