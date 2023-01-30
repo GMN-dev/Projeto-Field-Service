@@ -56,5 +56,5 @@
   //Render -Dashboard-
   renderDashboard()
 
-  feather.replace({ 'aria-hidden': 'true' })
+//   feather.replace({ 'aria-hidden': 'true' })
 })()
