@@ -13,7 +13,7 @@ from .utils import verify_month
 def auth_access(request):
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('/home')
+            return redirect('/home/')
         else:
             return render(request, 'autenticacao/html/login.html')
     
@@ -27,7 +27,7 @@ def auth_access(request):
             messages.add_message(request, constants.ERROR, "Usuário não encontrado deu ruim")
         if user:
             login(request, user)
-            return redirect('/home')  
+            return redirect('/home/')  
         else:
             messages.add_message(request, constants.ERROR, "Usuário não encontrado. Verifique seu email e senha")
             return redirect("/")
@@ -129,7 +129,7 @@ def dashboard_incidentes(request):
             messages.add_message(request, messages.constants.ERROR, "Verifique as informações cadastradas")
                     
         # renderizar página
-        return redirect('/home')  
+        return redirect('/home/')  
 
 
 @login_required(login_url="/")
