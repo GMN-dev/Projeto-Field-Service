@@ -2,8 +2,7 @@
   'use strict'
 
   let urlDashboard = '/home/api/dashboard/current-month/'
-  
-  feather.replace({ 'aria-hidden': 'true' })
+
   
   //Fetch Data from API
   async function getData(uri) {
@@ -22,10 +21,8 @@
       y.push(data.operacao)
       x.push(data.qtd_chamados)
     });
-    
-  console.log(dataAPI)
-  console.log(x, y)
-    // Graphs
+
+  // Graphs
   const ctx = document.getElementById('myChart')
     const myChart = new Chart(ctx, {
       type: 'bar',
@@ -57,4 +54,6 @@
 
   //Render -Dashboard-
   renderDashboard()
+
+  feather.replace({ 'aria-hidden': 'true' })
 })()
