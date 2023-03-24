@@ -10,16 +10,10 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
 
-<img src="exemplo-image.png" alt="exemplo imagem">
+![pfs3](https://user-images.githubusercontent.com/84913052/227520527-be301f6f-9446-4264-86bd-a6a7f79e5ecf.png)
 
-> Linha adicional de texto informativo sobre o que o projeto faz. Sua introdução deve ter cerca de 2 ou 3 linhas. Não exagere, as pessoas não vão ler.
+> Para gerenciar os inúmeros ativos, equipamentos e periféricos do grupo Stefanini, eram necessárias várias planilhas em Excel nada intuitivas. Para resolver esse problema, nos foi dado o desafio de criar uma plataforma online para que os coordenadores e técnicos de T.I da Stefanini pudessem fazer o gerenciamento desses ativos de forma, intuitiva, organizada e principalmente com gráficos e dashboards para tomadas de decisão. 
 
-<h3>Sobre</h3>
-  <p>
-  Para gerenciar os inúmeros ativos, equipamentos e periféricos do grupo Stefanini, 
-  eram necessárias várias planilhas em Excel nada intuitivas. Para resolver esse problema, nos foi dado o desafio de criar uma plataforma online para que       os coordenadores e técnicos de T.I da Stefanini
-  pudessem fazer o gerenciamento desses ativos de forma, intuitiva, organizada e principalmente com gráficos e dashboards para tomadas de decisão.
-  </p>
 <br>
 <br>
 <h3>Tecnologias</h3>
