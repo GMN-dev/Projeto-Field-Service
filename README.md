@@ -1,36 +1,3 @@
-
-<hr>
-
-<br>
-<h3>Sobre</h3>
-  <p>
-  Para gerenciar os inúmeros ativos, equipamentos e periféricos do grupo Stefanini, 
-  eram necessárias várias planilhas em Excel nada intuitivas. Para resolver esse problema, nos foi dado o desafio de criar uma plataforma online para que       os coordenadores e técnicos de T.I da Stefanini
-  pudessem fazer o gerenciamento desses ativos de forma, intuitiva, organizada e principalmente com gráficos e dashboards para tomadas de decisão.
-  </p>
-<br>
-
-<h3>Galeria</h3>
-<br>
-
-
-
-<br>
-<h3>Tecnologias</h3>
-<ul>
-  <li>Python</li>
-  <li>Django</li>
-  <li>Django Rest Framework</li>
-  <li>MySQL</li>
-  <li>Bootstrap</li>
-  <li>Javascript</li>
-  <li>ChartJS</li>
-  <li>HTML/CSS</li>
-<br>
-<hr>
-
-
-
 <h1>Projeto-Field-Service</h1>
 
 <h2>Projeto para gerenciamento de chamados relacionados a periféricos da Stefanini Group</h2>
@@ -47,100 +14,35 @@
 
 > Linha adicional de texto informativo sobre o que o projeto faz. Sua introdução deve ter cerca de 2 ou 3 linhas. Não exagere, as pessoas não vão ler.
 
-### Ajustes e melhorias
+<h3>Sobre</h3>
+  <p>
+  Para gerenciar os inúmeros ativos, equipamentos e periféricos do grupo Stefanini, 
+  eram necessárias várias planilhas em Excel nada intuitivas. Para resolver esse problema, nos foi dado o desafio de criar uma plataforma online para que       os coordenadores e técnicos de T.I da Stefanini
+  pudessem fazer o gerenciamento desses ativos de forma, intuitiva, organizada e principalmente com gráficos e dashboards para tomadas de decisão.
+  </p>
+<br>
+<br>
+<h3>Tecnologias</h3>
+<ul>
+  <li>Python</li>
+  <li>Django</li>
+  <li>Django Rest Framework</li>
+  <li>MySQL</li>
+  <li>Bootstrap</li>
+  <li>Javascript</li>
+  <li>ChartJS</li>
+  <li>HTML/CSS</li>
+<br>
+<hr>
 
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
+<h3>Galeria</h3>
 
-- [x] Tarefa 1
-- [x] Tarefa 2
-- [x] Tarefa 3
-- [ ] Tarefa 4
-- [ ] Tarefa 5
+![pfs4](https://user-images.githubusercontent.com/84913052/227392425-c84db1aa-c4f9-48cd-bff9-7874c3df244e.png)
+![pfs5](https://user-images.githubusercontent.com/84913052/227392427-0c5f3ee5-f73c-4d28-9c4a-d6f32fee1356.png)
+![pfs6](https://user-images.githubusercontent.com/84913052/227392429-123d7c9a-b071-4e4c-b9c3-24c69b1983f6.png)
+![pfs7](https://user-images.githubusercontent.com/84913052/227392431-4937cd68-99e0-4e2f-9e1e-4f8e585fda5e.png)
+![pfs](https://user-images.githubusercontent.com/84913052/227392435-3011558a-e22b-4eb9-af9a-e1df37c29806.png)
+![pfs1](https://user-images.githubusercontent.com/84913052/227392437-0ddb72fb-e9c0-4896-b526-462bb7c8b8fc.png)
+![pfs2](https://user-images.githubusercontent.com/84913052/227392420-ba3b39c1-f622-4d20-b3f6-aa8a9a176866.png)
+![pfs3](https://user-images.githubusercontent.com/84913052/227392423-3a685a30-96fd-4fea-8811-1ccf3afcb539.png)
 
-## 💻 Pré-requisitos
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-<!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
-* Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
-* Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-* Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
-
-## 🚀 Instalando <nome_do_projeto>
-
-Para instalar o <nome_do_projeto>, siga estas etapas:
-
-Linux e macOS:
-```
-<comando_de_instalação>
-```
-
-Windows:
-```
-<comando_de_instalação>
-```
-
-## ☕ Usando <nome_do_projeto>
-
-Para usar <nome_do_projeto>, siga estas etapas:
-
-```
-<exemplo_de_uso>
-```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
-
-## 📫 Contribuindo para <nome_do_projeto>
-<!---Se o seu README for longo ou se você tiver algum processo ou etapas específicas que deseja que os contribuidores sigam, considere a criação de um arquivo CONTRIBUTING.md separado--->
-Para contribuir com <nome_do_projeto>, siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin <nome_do_projeto> / <local>`
-5. Crie a solicitação de pull.
-
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-## 🤝 Colaboradores
-
-Agradecemos às seguintes pessoas que contribuíram para este projeto:
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="#">
-        <img src="https://avatars3.githubusercontent.com/u/31936044" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
-        <sub>
-          <b>Iuri Silva</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#">
-        <img src="https://s2.glbimg.com/FUcw2usZfSTL6yCCGj3L3v3SpJ8=/smart/e.glbimg.com/og/ed/f/original/2019/04/25/zuckerberg_podcast.jpg" width="100px;" alt="Foto do Mark Zuckerberg"/><br>
-        <sub>
-          <b>Mark Zuckerberg</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="#">
-        <img src="https://miro.medium.com/max/360/0*1SkS3mSorArvY9kS.jpg" width="100px;" alt="Foto do Steve Jobs"/><br>
-        <sub>
-          <b>Steve Jobs</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
-
-
-## 😄 Seja um dos contribuidores<br>
-
-Quer fazer parte desse projeto? Clique [AQUI](CONTRIBUTING.md) e leia como contribuir.
-
-## 📝 Licença
-
-Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
-
-[⬆ Voltar ao topo](#nome-do-projeto)<br>
